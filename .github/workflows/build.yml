@@ -27,16 +27,19 @@ jobs:
       - name: Validate package configuration
         run: node -e "JSON.parse(require('fs').readFileSync('package.json', 'utf8')); console.log('package.json valido')"
 
+
       - name: Check JavaScript syntax
         run: |
-          node --input-type=commonjs -e '
+          node -e '
           const fs = require("fs");
+          const vm = require("vm");
           const html = fs.readFileSync("www/index.html", "utf8");
           const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)];
           for (const script of scripts) {
             if (script[1].trim()) {
-              require("vm").Script(script[1]);
+              new vm.Script(script[1]);
             }
           }
-          console.log("Controllo script completato");
+          console.log("Controllo degli script completato");
           '
+
