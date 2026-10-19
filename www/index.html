@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<!-- Cioffo Rapportini — ideazione e progetto: Giuseppe Cioffo (Pepix). Sponsorizzazione e sviluppo: PepixGames. Tutti i diritti riservati. -->
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#173d46">
+<title>Cioffo Rapportini — Gestione attività</title>
+<style>
+/* Copyright © 2026 Giuseppe Cioffo (Pepix) — PepixGames. Cioffo Rapportini. */
+:root{--ink:#28264f;--muted:#74758e;--teal:#5146d8;--teal2:#e5e2ff;--mint:#dcf8ec;--green:#16845d;--blue:#e2f3ff;--paper:#f7f7ff;--white:#fff;--line:#e6e5f2;--gold:#fff0cf;--shadow:0 12px 32px rgba(54,48,130,.10);--radius:20px}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:15px;line-height:1.45}
+button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #8ec8cf;outline-offset:2px}
+.app{max-width:1120px;margin:0 auto;min-height:100vh;padding-bottom:94px}.topbar{background:linear-gradient(125deg,#39318f 0%,#5146d8 52%,#168e9a 100%);color:white;padding:20px 18px 24px;border-radius:0 0 28px 28px;position:relative;overflow:hidden}.topbar:after{content:'';position:absolute;width:190px;height:190px;border-radius:50%;background:#ffffff12;right:-70px;bottom:-105px;pointer-events:none}.topbar>*{position:relative;z-index:1}
+.toprow{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{display:flex;align-items:center;gap:11px}.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(135deg,#ffe1d8,#fff0c9);color:#39318f;display:grid;place-items:center;font-weight:900;font-size:17px;letter-spacing:-1px;box-shadow:0 5px 16px #1d1b5833}.brand h1{font-size:18px;margin:0;font-weight:800;letter-spacing:-.4px}.brand p{margin:2px 0 0;color:#b9d0d1;font-size:12px}.iconbtn{border:1px solid #ffffff35;color:white;background:#ffffff12;border-radius:13px;width:42px;height:42px;font-size:18px}
+.eyebrow{text-transform:uppercase;letter-spacing:1.3px;font-size:10px;font-weight:800;color:#8fb9bd;margin:23px 0 7px}.heroTitle{font-size:27px;line-height:1.15;letter-spacing:-.8px;margin:0 0 8px}.heroSub{color:#c3d6d6;margin:0;font-size:13px;max-width:500px}.heroStats{display:flex;gap:10px;margin-top:19px}.stat{background:#ffffff18;border:1px solid #ffffff28;border-radius:15px;padding:11px 13px;flex:1;min-width:0;backdrop-filter:blur(8px)}.stat strong{display:block;font-size:20px}.stat span{font-size:11px;color:#c3d6d6}
+main{padding:18px 14px}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:8px 2px 13px}.sectionhead h2{font-size:19px;letter-spacing:-.4px;margin:0}.sectionhead p{font-size:12px;color:var(--muted);margin:4px 0 0}.smallbtn{border:1px solid var(--line);background:white;color:var(--teal);font-size:12px;font-weight:750;padding:9px 12px;border-radius:12px}
+.weeknav{display:flex;align-items:center;justify-content:space-between;gap:8px;background:white;border:1px solid var(--line);padding:10px;border-radius:17px;margin-bottom:13px}.weeknav button{border:0;background:var(--paper);border-radius:11px;width:36px;height:36px;color:var(--teal);font-size:19px}.weeklabel{font-size:13px;font-weight:800;text-align:center}.weeklabel small{display:block;color:var(--muted);font-weight:500;font-size:11px;margin-top:2px}
+.daystrip{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-bottom:17px}.daychip{border:1px solid var(--line);background:white;border-radius:14px;padding:9px 2px 8px;text-align:center;color:var(--ink);min-width:0}.daychip .dow{display:block;color:var(--muted);font-size:10px;font-weight:750;text-transform:uppercase}.daychip .num{display:block;font-size:16px;font-weight:850;margin:4px 0}.daychip .dot{display:block;width:5px;height:5px;background:#dce4e1;border-radius:50%;margin:0 auto}.daychip.has .dot{background:var(--green)}.daychip.active{background:linear-gradient(145deg,#5146d8,#7165ed);color:white;border-color:#5146d8;box-shadow:0 6px 14px #5146d833}.daychip.active .dow{color:#c1dddd}.daychip.active .dot{background:#a7e2c4}
+.card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:13px;box-shadow:0 4px 18px rgba(54,48,130,.035);position:relative;overflow:hidden}.card:before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#5146d8,#48c6c2,#ff9b83);opacity:.78}.card>*{position:relative}.cardhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:13px}.cardtitle{display:flex;align-items:center;gap:10px}.cardicon{width:39px;height:39px;display:grid;place-items:center;border-radius:13px;font-size:18px}.planned .cardicon{background:linear-gradient(135deg,#dceeff,#dff7ff);color:#3269b4}.done .cardicon{background:linear-gradient(135deg,#d9f8e9,#c7f2dd);color:#16845d}.cardtitle h3{font-size:15px;margin:0}.cardtitle p{font-size:11px;color:var(--muted);margin:3px 0 0}.count{font-size:11px;background:#f2f5f3;padding:5px 8px;border-radius:9px;color:var(--muted);font-weight:750}
+.tasklist{display:flex;flex-direction:column;gap:8px}.task{display:flex;align-items:flex-start;gap:9px;padding:10px 10px;border:1px solid #edf0ed;border-radius:13px;background:#fdfdfb}.taskcheck{width:19px;height:19px;accent-color:var(--green);margin-top:2px;flex-shrink:0}.tasktext{flex:1;min-width:0;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}.task.completed .tasktext{text-decoration:line-through;color:#7f9290}.taskactions{display:flex;gap:3px}.tiny{border:0;background:transparent;color:#8a9a98;padding:2px 4px;font-size:15px}.empty{border:1px dashed #d8e2de;color:#839491;border-radius:13px;padding:17px;text-align:center;font-size:12px}.addrow{display:flex;gap:7px;margin-top:10px}.addrow input{min-width:0;flex:1;border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:#fff;font-size:13px}.addbtn{border:0;border-radius:12px;background:linear-gradient(135deg,#5146d8,#168e9a);color:white;font-weight:800;padding:0 15px;font-size:19px;box-shadow:0 4px 10px #5146d822}
+.modegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.mode{border:1px solid var(--line);border-radius:15px;background:white;padding:13px 10px;text-align:left;color:var(--ink);min-width:0}.mode .emoji{font-size:20px;display:block;margin-bottom:7px}.mode strong{font-size:12px;display:block}.mode span{display:block;color:var(--muted);font-size:10px;margin-top:4px;line-height:1.35}.mode:active{transform:scale(.985);background:#f0f7f5}
+.primary{background:linear-gradient(120deg,#5146d8,#168e9a);color:white;border:0;border-radius:13px;padding:12px 15px;font-weight:800;box-shadow:0 5px 12px #5146d822}.secondary{background:white;border:1px solid var(--line);color:var(--teal);border-radius:13px;padding:11px 14px;font-weight:750}.danger{color:#a34a43}.toolbar{display:flex;gap:8px;flex-wrap:wrap}.toolbar button{flex:1}
+.bottomnav{position:fixed;z-index:5;bottom:0;left:0;right:0;background:#ffffffef;backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px max(12px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:4px}.navitem{border:0;background:transparent;color:#7b8c8a;flex:1;max-width:140px;border-radius:12px;padding:7px 2px;font-size:10px;font-weight:700}.navitem .navico{display:block;font-size:19px;margin-bottom:3px}.navitem.active{color:#5146d8;background:#eeecff}
+.view{display:none}.view.active{display:block}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}.field label{font-size:12px;font-weight:800;color:var(--muted)}.field input,.field textarea,.field select{border:1px solid var(--line);border-radius:12px;padding:12px;background:white;color:var(--ink);width:100%}.field textarea{min-height:130px;resize:vertical}.hint{font-size:12px;color:var(--muted);margin:0 0 12px}.pillrow{display:flex;gap:7px;flex-wrap:wrap}.pill{border:1px solid var(--line);background:white;border-radius:99px;padding:8px 11px;font-size:12px;color:var(--teal);font-weight:750}.pill.active{background:var(--teal);color:white;border-color:var(--teal)}
+.micbig{width:74px;height:74px;border-radius:50%;border:0;background:linear-gradient(145deg,#5146d8,#168e9a);color:white;font-size:28px;box-shadow:0 0 0 9px #e9e7ff;margin:12px auto 18px;display:grid;place-items:center}.micbig.listening{background:#bd554a;box-shadow:0 0 0 9px #f8e7e4;animation:pulse 1.5s infinite}@keyframes pulse{50%{box-shadow:0 0 0 15px #f8e7e455}}
+.center{text-align:center}.center h2{margin:4px 0 6px}.center p{color:var(--muted);font-size:13px;margin:0 auto;max-width:390px}.transcript{background:#f5f8f6;border:1px solid var(--line);padding:12px;border-radius:13px;min-height:72px;text-align:left;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0}.notice{padding:12px 13px;border-radius:13px;background:#fff7e8;color:#7b6031;font-size:12px;margin-bottom:12px}
+.exportrow{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.exportrow:last-child{border:0}.exportico{width:43px;height:43px;border-radius:13px;background:#edf5f0;display:grid;place-items:center;font-size:20px}.exportrow .grow{flex:1}.exportrow strong{font-size:13px}.exportrow p{margin:3px 0 0;color:var(--muted);font-size:11px}
+.toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);background:#173d46;color:white;padding:10px 15px;border-radius:12px;font-size:12px;box-shadow:var(--shadow);z-index:20;display:none;max-width:90vw;text-align:center}
+footer{text-align:center;color:#94a29e;font-size:10px;padding:12px 0 20px}
+@media(min-width:760px){.app{padding-bottom:35px}.topbar{padding:25px 32px 28px;border-radius:0 0 30px 30px}.heroTitle{font-size:34px}main{padding:24px 30px}.layout2{display:grid;grid-template-columns:1fr 1fr;gap:13px}.layout2 .card{margin-bottom:0}.bottomnav{position:sticky;bottom:0;border:1px solid var(--line);border-radius:18px;max-width:650px;margin:0 auto 12px;box-shadow:var(--shadow)}.daychip{padding:12px 5px}.daychip .dow{font-size:11px}.daychip .num{font-size:18px}.tasktext{font-size:14px}.card{padding:19px}}
+@media(max-width:360px){.heroTitle{font-size:24px}.stat{padding:9px}.stat strong{font-size:17px}.modegrid{gap:5px}.mode{padding:10px 7px}.mode strong{font-size:11px}.card{padding:13px}}
+@media print{body{background:white}.topbar,.bottomnav,.weeknav,.daystrip,.modegrid,.addrow,.toolbar,.smallbtn,.iconbtn,footer{display:none!important}.app{max-width:none;padding:0}.topbar{display:block}.view{display:none!important}#weekView{display:block!important}main{padding:0}.card{box-shadow:none;break-inside:avoid;border:1px solid #bbb}.task{background:white}.sectionhead{margin-top:0}.layout2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.printtitle{display:block!important}}
+.printtitle{display:none}
+
+/* Cioffo Rapportini 0.6 — microinterazioni leggere e accessibili */
+:root{--ease-out:cubic-bezier(.2,.75,.25,1)}
+button,.card,.daychip,.task,.exportrow,.mode{transition:transform .18s var(--ease-out),box-shadow .2s var(--ease-out),border-color .2s ease,background-color .2s ease,filter .2s ease}
+button{ -webkit-tap-highlight-color:transparent; }
+button:hover{filter:brightness(1.025)}
+button:active{transform:translateY(1px) scale(.985)}
+.card{animation:card-in .38s var(--ease-out) both}
+.task{animation:task-in .24s var(--ease-out) both}
+.task:hover{border-color:#d4d1ff;box-shadow:0 4px 12px rgba(81,70,216,.07)}
+.daychip:hover{transform:translateY(-1px);box-shadow:0 5px 12px rgba(54,48,130,.08)}
+.addbtn:hover,.primary:hover{box-shadow:0 7px 18px rgba(81,70,216,.24);filter:saturate(1.08)}
+.secondary:hover,.smallbtn:hover{border-color:#bcb6ff;background:#f7f6ff}
+input,textarea,select{transition:border-color .18s ease,box-shadow .18s ease}
+input:focus,textarea:focus,select:focus{border-color:#8c83ff!important;box-shadow:0 0 0 3px #5146d817}
+.toast{animation:toast-in .22s var(--ease-out)}
+.micbig{transition:transform .2s ease,box-shadow .2s ease}
+.micbig:hover{transform:scale(1.035)}
+@keyframes card-in{from{opacity:.75;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@keyframes task-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@keyframes toast-in{from{opacity:0;transform:translate(-50%,8px)}to{opacity:1;transform:translate(-50%,0)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+@media(min-width:760px){.card:hover{box-shadow:0 10px 28px rgba(54,48,130,.07)}}
+
+
+/* v0.7 — layout desktop con sidebar, stato locale, modelli e undo */
+.sidebar{display:none}
+.topactions{display:flex;align-items:center;gap:7px}
+.savebadge{display:inline-flex;align-items:center;gap:6px;background:#ffffff18;border:1px solid #ffffff32;border-radius:999px;padding:7px 9px;font-size:10px;color:#e7f5f3;white-space:nowrap}
+.savebadge i{display:block;width:7px;height:7px;border-radius:50%;background:#8de1b9}
+.savebadge.pending i{background:#ffd17b}
+.savebadge.error i{background:#ff9b9b}
+.iconbtn:disabled{opacity:.35;cursor:not-allowed}
+.templatecard{border-color:#ded8ff}
+.templatecontrols{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.templatecontrols select{flex:1;min-width:180px;border:1px solid var(--line);border-radius:12px;padding:11px;background:#fff;color:var(--ink)}
+.templatecreate{display:grid;grid-template-columns:1fr 1.4fr auto;gap:7px;margin-top:9px}
+.templatecreate input{min-width:0;border:1px solid var(--line);border-radius:12px;padding:11px;font-size:12px}
+.templatecreate .primary{padding:9px 12px;font-size:12px}
+.localnotice{display:flex;flex-direction:column;gap:4px;margin-top:14px;padding:13px;border-radius:13px;background:#f0edff;border:1px solid #e2ddff;color:#39318f;font-size:12px}
+.localnotice span{color:#65628c;line-height:1.5}
+@media(max-width:759px){.templatecreate{grid-template-columns:1fr}.templatecontrols select{width:100%;flex-basis:100%}.savebadge{font-size:0;padding:7px}.savebadge i{width:9px;height:9px}.topactions{gap:5px}}
+@media(min-width:1100px){
+ body{padding-left:252px}
+ .sidebar{display:flex;position:fixed;z-index:10;inset:0 auto 0 0;width:252px;background:#fff;border-right:1px solid var(--line);padding:22px 14px 16px;flex-direction:column;gap:5px;box-shadow:4px 0 20px rgba(54,48,130,.035)}
+ .sidebrand{display:flex;align-items:center;gap:10px;padding:2px 8px 24px}
+ .sidebrand strong,.sidebrand span{display:block;line-height:1.25}.sidebrand strong{font-size:16px;letter-spacing:-.4px}.sidebrand span{font-size:12px;color:var(--muted)}
+ .sidesection{font-size:9px;font-weight:850;letter-spacing:1.2px;color:#9695ad;padding:0 12px 8px;margin-top:3px}
+ .sidenav{display:flex;align-items:center;gap:11px;width:100%;border:0;border-radius:12px;background:transparent;color:#666783;padding:12px 13px;text-align:left;font-size:12px;font-weight:750}
+ .sidenav span{width:21px;text-align:center;font-size:17px}
+ .sidenav:hover{background:#f7f6ff;color:#5146d8}
+ .sidenav.active{background:#eeecff;color:#5146d8}
+ .sidebottom{margin-top:auto}
+ .localpill{display:flex;align-items:center;gap:9px;background:#f2fbf7;border:1px solid #d8f1e5;border-radius:13px;padding:11px;margin-bottom:8px}
+ .localdot{width:9px;height:9px;border-radius:50%;background:#16845d;flex-shrink:0}
+ .localpill strong,.localpill small{display:block}.localpill strong{font-size:11px;color:#126747}.localpill small{font-size:10px;color:#52836f;margin-top:2px}
+ .app{max-width:1450px;padding-bottom:30px}
+ .topbar{border-radius:0 0 28px 28px}
+ .bottomnav{display:none}
+ main{padding:28px 34px}
+ .heroTitle{font-size:36px}
+}
+@media(min-width:760px) and (max-width:1099px){.app{max-width:980px}}
+@media(prefers-reduced-motion:reduce){.sidebar *{transition:none!important}}
+
+
+/* v0.8 — navigazione animata, profondità e tema scuro completo */
+.hamburger{display:grid;align-content:center;justify-items:center;gap:4px;flex:0 0 42px;padding:0}
+.hamburger span{display:block;width:17px;height:2px;border-radius:4px;background:currentColor;transition:transform .28s cubic-bezier(.2,.8,.2,1),opacity .18s,width .25s}
+body.sidebar-collapsed .hamburger span:first-child{transform:none;width:10px}
+body.sidebar-collapsed .hamburger span:nth-child(2){opacity:1;width:17px}
+body.sidebar-collapsed .hamburger span:last-child{transform:none;width:10px}
+.navbackdrop{display:none}
+.sidebar{transition:width .32s cubic-bezier(.2,.8,.2,1),transform .32s cubic-bezier(.2,.8,.2,1),box-shadow .25s}
+.sidenav{transition:padding .25s,background .2s,color .2s,transform .2s}
+.sidenav:active{transform:scale(.98)}
+.card,.weeknav,.daychip,.export-card,.export-config,.restore-card{box-shadow:0 8px 24px rgba(42,37,105,.055),0 2px 6px rgba(42,37,105,.035);transition:transform .22s,box-shadow .22s,border-color .22s,background .22s}
+.card:hover,.export-card:hover,.restore-card:hover{box-shadow:0 14px 34px rgba(42,37,105,.10),0 4px 10px rgba(42,37,105,.04)}
+.exporthero{display:flex;align-items:center;gap:17px;padding:22px 23px;border-radius:23px;background:linear-gradient(125deg,#39318f 0%,#5146d8 57%,#168e9a 100%);color:#fff;box-shadow:0 14px 32px rgba(81,70,216,.22);margin:4px 0 20px;position:relative;overflow:hidden}
+.exporthero:after{content:"";position:absolute;right:-35px;top:-70px;width:180px;height:180px;border:1px solid #ffffff30;border-radius:50%;box-shadow:0 0 0 22px #ffffff0d,0 0 0 44px #ffffff08;pointer-events:none}
+.exporthero-icon{display:grid;place-items:center;width:62px;height:62px;flex:0 0 62px;border-radius:19px;background:#ffffff20;border:1px solid #ffffff35;font-size:30px;box-shadow:inset 0 1px 0 #ffffff30}
+.exporthero h2{font-size:clamp(22px,3vw,30px);line-height:1.15;letter-spacing:-.7px;margin:3px 0 7px;color:#fff}
+.exporthero p{margin:0;max-width:690px;color:#e2e4ff;font-size:13px;line-height:1.65}
+.export-eyebrow{font-size:9px;font-weight:850;letter-spacing:1.5px;color:#a9e9e2}
+.export-config{padding:20px;margin-bottom:23px}
+.export-config-title{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:15px}
+.export-config-title h3,.export-section-label h3{margin:0;font-size:15px;letter-spacing:-.2px}
+.export-config-title p,.export-section-label p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.local-chip{font-size:10px;white-space:nowrap;background:#e4f8ef;color:#147750;border-radius:999px;padding:7px 10px;font-weight:800}
+.export-range-hint{font-size:11px;color:var(--muted);margin:10px 0 0;line-height:1.5}
+.export-config-grid input[type="date"]{width:100%;min-height:42px}
+.export-config-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.export-config .field{margin:0}
+.export-config input,.export-config select{width:100%;min-height:45px}
+.export-section-label{margin:0 2px 13px}
+.export-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:19px}
+.export-card{border:1px solid var(--line);background:var(--white);border-radius:20px;padding:18px;display:flex;flex-direction:column;min-width:0;position:relative;overflow:hidden}
+.export-card:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#5146d8,#42bdb5)}
+.excel-card:before{background:linear-gradient(90deg,#16845d,#7ddbb5)}
+.backup-card:before{background:linear-gradient(90deg,#d96a3a,#f5bd79)}
+.export-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:4px 0 16px}
+.export-format-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;font-size:12px;font-weight:900;letter-spacing:.3px;background:#eeecff;color:#5146d8;box-shadow:inset 0 1px 0 #fff}
+.excel-card .export-format-icon{background:#e1f7ed;color:#16845d}
+.backup-card .export-format-icon{background:#fff0e5;color:#b95c32;font-size:10px}
+.format-tag{font-size:9px;font-weight:750;color:var(--muted);text-align:right}
+.export-card h3{font-size:15px;margin:0 0 7px;letter-spacing:-.2px}
+.export-card>p{font-size:12px;line-height:1.65;color:var(--muted);margin:0 0 20px;flex:1}
+.export-card-foot{display:flex;flex-direction:column;align-items:stretch;gap:11px;border-top:1px solid var(--line);padding-top:14px}
+.export-card-foot>span{font-size:10px;color:var(--muted)}
+.export-card-foot button{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;min-height:42px}
+.export-safety{display:flex;align-items:flex-start;gap:12px;border:1px solid #d9f0e4;background:#f0fbf5;border-radius:17px;padding:15px 17px;margin:0 0 18px;color:#155c43}
+.safety-icon{display:grid;place-items:center;flex:0 0 35px;width:35px;height:35px;border-radius:11px;background:#d8f4e5}
+.export-safety strong{font-size:12px}.export-safety p{font-size:11px;line-height:1.6;margin:4px 0 0;color:#4b7c68}
+.restore-card{display:flex;gap:14px;align-items:flex-start;padding:19px}
+.restore-icon{display:grid;place-items:center;flex:0 0 43px;height:43px;border-radius:13px;background:#f0edff;color:#5146d8;font-size:23px}
+.restore-copy{flex:1;min-width:0}.restore-copy h3{margin:0 0 5px;font-size:15px}.restore-copy p{font-size:12px;line-height:1.6;color:var(--muted);margin:0 0 13px}.restore-copy input{width:100%;max-width:520px}
+@media(min-width:1100px){
+ body{transition:padding-left .32s cubic-bezier(.2,.8,.2,1)}
+ body.sidebar-collapsed{padding-left:82px}
+ body.sidebar-collapsed .sidebar{width:82px;padding-left:11px;padding-right:11px}
+ body.sidebar-collapsed .sidebrand{justify-content:center;padding-left:0;padding-right:0}
+ body.sidebar-collapsed .sidebrand>div:last-child,body.sidebar-collapsed .sidesection,body.sidebar-collapsed .sidenav:not([data-view]){display:none}
+ body.sidebar-collapsed .sidenav{justify-content:center;padding:12px 8px;font-size:0;gap:0}
+ body.sidebar-collapsed .sidenav span{font-size:18px}
+ body.sidebar-collapsed .localpill{justify-content:center;padding:12px 5px}
+ body.sidebar-collapsed .localpill>div{display:none}
+}
+@media(max-width:1099px){
+ .sidebar.mobile-open{display:flex;position:fixed;z-index:50;inset:0 auto 0 0;width:min(290px,84vw);padding:22px 14px 16px;background:var(--white);border-right:1px solid var(--line);flex-direction:column;gap:5px;box-shadow:18px 0 50px #17143c25;transform:translateX(0)}
+ .sidebar.mobile-open .sidebottom{margin-top:auto}
+ .sidebar.mobile-open .sidenav{display:flex}
+ .sidebar.mobile-open .navbackdrop{display:block}
+ .navbackdrop.open{display:block;position:fixed;z-index:49;inset:0;background:#15133175;backdrop-filter:blur(3px)}
+ body.mobile-nav-open{overflow:hidden}
+ .sidebar.mobile-open{animation:drawer-in .3s cubic-bezier(.2,.8,.2,1) both}
+}
+@keyframes drawer-in{from{transform:translateX(-100%);opacity:.8}to{transform:translateX(0);opacity:1}}
+@media(max-width:900px){.export-cards{grid-template-columns:1fr 1fr}.export-card:last-child{grid-column:1/-1}.export-card:last-child .export-card-foot{flex-direction:row;align-items:center}.export-card:last-child .export-card-foot button{width:auto;min-width:150px}}
+@media(max-width:620px){.exporthero{padding:18px;align-items:flex-start;gap:12px}.exporthero-icon{width:45px;height:45px;flex-basis:45px;border-radius:14px;font-size:23px}.exporthero p{font-size:12px}.export-config{padding:15px}.export-config-grid{grid-template-columns:1fr}.export-config-title{flex-direction:column}.export-cards{grid-template-columns:1fr}.export-card:last-child{grid-column:auto}.export-card:last-child .export-card-foot{flex-direction:column;align-items:stretch}.export-card:last-child .export-card-foot button{width:100%}.restore-card{padding:15px}.export-safety{padding:13px}}
+/* Dark theme tokens and component overrides */
+body.dark-mode{--ink:#eef0ff;--muted:#a7abc5;--teal:#aaa2ff;--teal2:#302d50;--mint:#183d34;--green:#69d8a4;--blue:#1d3448;--paper:#11121b;--white:#1c1e2b;--line:#34364b;--gold:#49391c;--shadow:0 14px 36px rgba(0,0,0,.28);background:var(--paper);color:var(--ink);color-scheme:dark}
+body.dark-mode .sidebar,body.dark-mode .card,body.dark-mode .weeknav,body.dark-mode .daychip,body.dark-mode .export-card,body.dark-mode .export-config,body.dark-mode .restore-card,body.dark-mode .templatecontrols select,body.dark-mode .templatecreate input{background:var(--white);color:var(--ink);border-color:var(--line)}
+body.dark-mode .topbar{box-shadow:0 12px 32px rgba(0,0,0,.24)}
+body.dark-mode .smallbtn,body.dark-mode .secondary,body.dark-mode .weeknav button,body.dark-mode input,body.dark-mode textarea,body.dark-mode select{background:#252738;color:var(--ink);border-color:var(--line)}
+body.dark-mode input::placeholder,body.dark-mode textarea::placeholder{color:#777d9b}
+body.dark-mode .sidenav{color:#b5b8d2}
+body.dark-mode .sidenav:hover,body.dark-mode .sidenav.active{background:#302d50;color:#c1bbff}
+body.dark-mode .localpill{background:#17352e;border-color:#285548}
+body.dark-mode .localpill strong{color:#9be7c5}body.dark-mode .localpill small{color:#8bb6a5}
+body.dark-mode .local-chip{background:#203e34;color:#8fe2bc}
+body.dark-mode .export-safety{background:#172d27;border-color:#285447;color:#a7ebca}
+body.dark-mode .export-safety p{color:#91bca9}
+body.dark-mode .safety-icon{background:#244638}
+body.dark-mode .restore-icon{background:#302d50;color:#c1bbff}
+body.dark-mode .export-format-icon{box-shadow:inset 0 1px 0 #ffffff0a}
+body.dark-mode .export-card-foot{border-color:var(--line)}
+body.dark-mode .bottomnav{background:#1c1e2b;border-color:#34364b;box-shadow:0 -6px 24px #0003}
+body.dark-mode .navitem{color:#a7abc5}
+body.dark-mode .navitem.active{color:#c1bbff}
+body.dark-mode .toast{background:#292b3c;color:#f2f2ff;border:1px solid #42455f}
+body.dark-mode .localnotice{background:#282543;border-color:#403a71;color:#d0cbff}
+body.dark-mode .localnotice span{color:#b0acd9}
+body.dark-mode .stat:not(.topbar .stat){background:#252738}
+body.dark-mode footer{color:#777d9b}
+body.dark-mode .card:before{opacity:.9}
+body.dark-mode .daychip.active{background:linear-gradient(145deg,#5146d8,#7165ed);color:white}
+body.dark-mode .task,body.dark-mode .taskrow,body.dark-mode .archiveitem,body.dark-mode .exportrow{background:#222435;border-color:#363950;color:var(--ink)}
+body.dark-mode .field label,body.dark-mode label{color:var(--ink)}
+body.dark-mode .exporthero{box-shadow:0 14px 32px #0004}
+body.dark-mode .iconbtn{background:#ffffff14}
+body.dark-mode .savebadge{background:#ffffff12}
+body.dark-mode .templatecard{border-color:#403a71}
+body.dark-mode .hint{color:var(--muted)}
+body.dark-mode .modal,body.dark-mode .dialog{background:var(--white);color:var(--ink)}
+body.dark-mode ::selection{background:#5b52aa;color:#fff}
+
+
+/* v0.9 — hover sidebar, refined motion and complete color tokens */
+.hamburger{display:none!important}
+@media(min-width:1100px){
+ body{padding-left:82px;transition:padding-left .48s cubic-bezier(.16,1,.3,1)}
+ .sidebar{width:82px;padding:22px 11px 16px;overflow:hidden;white-space:nowrap;transition:width .48s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,padding .35s ease}
+ .sidebrand{justify-content:center;padding-left:0;padding-right:0;transition:padding .3s ease}
+ .sidebrand>div:last-child,.sidesection,.sidenav:not([data-view]){opacity:0;visibility:hidden;width:0;overflow:hidden;transition:opacity .15s ease,visibility .15s,width .3s}
+ .sidenav{justify-content:center;padding:12px 8px;gap:0;font-size:0;min-height:45px}
+ .sidenav span{font-size:19px;flex:0 0 21px}
+ .localpill{justify-content:center;padding:12px 5px;transition:padding .3s}
+ .localpill>div{opacity:0;visibility:hidden;width:0;overflow:hidden}
+ body:not(.sidebar-collapsed){padding-left:270px}
+ body:not(.sidebar-collapsed) .sidebar{width:270px;padding:22px 14px 16px;box-shadow:18px 0 44px rgba(34,28,86,.13)}
+ body:not(.sidebar-collapsed) .sidebrand{justify-content:flex-start;padding:2px 8px 24px}
+ body:not(.sidebar-collapsed) .sidebrand>div:last-child,body:not(.sidebar-collapsed) .sidesection,body:not(.sidebar-collapsed) .sidenav:not([data-view]){opacity:1;visibility:visible;width:auto}
+ body:not(.sidebar-collapsed) .sidenav{justify-content:flex-start;padding:12px 13px;gap:11px;font-size:12px}
+ body:not(.sidebar-collapsed) .sidenav span{font-size:17px}
+ body:not(.sidebar-collapsed) .localpill{justify-content:flex-start;padding:11px}
+ body:not(.sidebar-collapsed) .localpill>div{opacity:1;visibility:visible;width:auto}
+}
+.card,.weeknav,.daychip,.export-card,.export-config,.restore-card{box-shadow:0 9px 26px rgba(42,37,105,.065),0 2px 7px rgba(42,37,105,.035)}
+.card:hover,.export-card:hover,.restore-card:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(42,37,105,.11),0 5px 12px rgba(42,37,105,.05)}
+@media(prefers-reduced-motion:reduce){.sidebar,.sidebar *,.card,.export-card,.restore-card,body{transition:none!important;animation:none!important;transform:none!important}}
+/* Ensure controls and commonly white-filled activity elements honor both themes */
+body:not(.dark-mode){color-scheme:light}
+body:not(.dark-mode) .templatecreate input,body:not(.dark-mode) .templatecontrols select,
+body:not(.dark-mode) .field input,body:not(.dark-mode) .field select,body:not(.dark-mode) .field textarea{background:#fff;color:#28264f;border-color:#e1e0f2}
+body:not(.dark-mode) .task,body:not(.dark-mode) .taskrow,body:not(.dark-mode) .archiveitem,body:not(.dark-mode) .exportrow{background:#fff;color:#28264f;border-color:#e6e5f2}
+body:not(.dark-mode) .localnotice{background:#f0edff;color:#39318f;border-color:#e2ddff}
+body:not(.dark-mode) .localnotice span{color:#65628c}
+body:not(.dark-mode) .templatecard{background:#fff;border-color:#ded8ff}
+body.dark-mode .templatecreate input,body.dark-mode .templatecontrols select,
+body.dark-mode .field input,body.dark-mode .field select,body.dark-mode .field textarea{background:#252738!important;color:#eef0ff!important;border-color:#42455d!important;color-scheme:dark}
+body.dark-mode .templatecreate input::placeholder,body.dark-mode .field input::placeholder,body.dark-mode .field textarea::placeholder{color:#9297b4!important}
+body.dark-mode .templatecard{background:#1c1e2b!important;border-color:#403a71!important}
+body.dark-mode .templatecard .cardtitle h3,body.dark-mode .templatecard .cardtitle p{color:#eef0ff}
+body.dark-mode .templatecard .count{background:#2c2e40;color:#b8bbd4}
+body.dark-mode .templatecontrols .secondary{background:#292b3d!important;color:#c1bbff!important;border-color:#42455d!important}
+body.dark-mode .templatecontrols .danger{color:#ffaaa5!important}
+body.dark-mode .task,body.dark-mode .taskrow,body.dark-mode .archiveitem,body.dark-mode .exportrow{background:#222435!important;border-color:#363950!important;color:#eef0ff!important}
+body.dark-mode .task *,body.dark-mode .taskrow *,body.dark-mode .archiveitem *,body.dark-mode .exportrow *{color:inherit}
+body.dark-mode .localnotice{background:#282543!important;border-color:#403a71!important;color:#d0cbff!important}
+body.dark-mode .localnotice span{color:#b0acd9!important}
+body.dark-mode .field label,body.dark-mode label{color:#d9dbf2!important}
+body.dark-mode .hint,body.dark-mode .sectionhead p,body.dark-mode .weeklabel small{color:#a7abc5!important}
+body.dark-mode .daychip .dow{color:#a7abc5}
+body.dark-mode .daychip.active .dow{color:#e4e2ff}
+body.dark-mode .export-format-icon{background:#302d50;color:#c1bbff}
+body.dark-mode .excel-card .export-format-icon{background:#203e34;color:#8fe2bc}
+body.dark-mode .backup-card .export-format-icon{background:#493025;color:#ffc09a}
+body.dark-mode .exporthero{color:#fff}
+body.dark-mode .local-chip{background:#203e34;color:#8fe2bc}
+body.dark-mode .export-safety{background:#172d27;border-color:#285447;color:#a7ebca}
+body.dark-mode .export-safety p{color:#91bca9}
+body.dark-mode .restore-copy p{color:#a7abc5}
+body.dark-mode .sidebar{background:#1c1e2b;border-color:#34364b}
+body.dark-mode .sidenav{color:#b5b8d2}
+body.dark-mode .sidenav:hover,body.dark-mode .sidenav.active{background:#302d50;color:#c1bbff}
+body.dark-mode .localpill{background:#17352e;border-color:#285548}
+body.dark-mode .localpill strong{color:#9be7c5}
+body.dark-mode .localpill small{color:#8bb6a5}
+
+
+/* v1.0 — fix modalità scura per le card modalità + bordo RGB animato */
+body.dark-mode .modegrid .mode,
+body.dark-mode button.mode{
+  background:#1c1e2b!important;
+  color:#eef0ff!important;
+  border-color:#393b54!important;
+  box-shadow:0 8px 22px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.035);
+}
+body.dark-mode .mode strong{color:#eef0ff!important}
+body.dark-mode .mode span{color:#a7abc5!important}
+body.dark-mode .mode:active{background:#292642!important}
+body:not(.dark-mode) .modegrid .mode,
+body:not(.dark-mode) button.mode{background:#fff!important;color:#28264f!important}
+body:not(.dark-mode) .mode strong{color:#28264f!important}
+body:not(.dark-mode) .mode span{color:#74758e!important}
+
+/* RGB border like a slowly cycling RAM light strip: only visible in dark theme */
+body.dark-mode .card,
+body.dark-mode .export-card,
+body.dark-mode .export-config,
+body.dark-mode .restore-card{
+  isolation:isolate;
+  border-color:transparent!important;
+  background-clip:padding-box;
+}
+body.dark-mode .card::after,
+body.dark-mode .export-card::after,
+body.dark-mode .export-config::after,
+body.dark-mode .restore-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  padding:1px;
+  border-radius:inherit;
+  background:conic-gradient(from var(--rgb-angle,0deg),#7867ff,#4edfd0,#74a7ff,#ff79c6,#ffb66d,#7867ff);
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+  opacity:.68;
+  animation:rgb-border-rotate 9s linear infinite;
+  z-index:0;
+}
+body.dark-mode .card>*,
+body.dark-mode .export-card>*,
+body.dark-mode .export-config>*,
+body.dark-mode .restore-card>*{position:relative;z-index:1}
+@keyframes rgb-border-rotate{to{--rgb-angle:360deg}}
+@property --rgb-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+
+/* Menu staircase: each list row emerges top-to-bottom, extending to the right */
+@media(min-width:1100px){
+  .sidebar{overflow:hidden;transform-origin:top left}
+  .sidebar .sidebrand{transform-origin:left center}
+  .sidebar .sidesection{transform:translate(-12px,-5px);clip-path:inset(0 100% 0 0);opacity:0;transition:clip-path .32s cubic-bezier(.2,.8,.2,1),transform .32s cubic-bezier(.2,.8,.2,1),opacity .18s ease}
+  .sidebar .sidenav[data-view]{transform-origin:left center;clip-path:inset(0 100% 0 0);opacity:0;transition:clip-path .34s cubic-bezier(.16,1,.3,1),transform .34s cubic-bezier(.16,1,.3,1),opacity .2s ease,background .2s,color .2s;will-change:clip-path,transform}
+  .sidebar .sidebottom{clip-path:inset(0 100% 0 0);opacity:0;transform:translateX(-12px);transition:clip-path .34s cubic-bezier(.16,1,.3,1),opacity .2s,transform .34s cubic-bezier(.16,1,.3,1)}
+  body:not(.sidebar-collapsed) .sidebar .sidesection{clip-path:inset(0 0 0 0);opacity:1;transform:translate(0,0);transition-delay:.04s}
+  body:not(.sidebar-collapsed) .sidebar .sidenav[data-view]{clip-path:inset(0 0 0 0);opacity:1;transform:translateX(0)}
+  body:not(.sidebar-collapsed) .sidebar .sidenav[data-view]:nth-of-type(1){transition-delay:.08s}
+  body:not(.sidebar-collapsed) .sidebar .sidenav[data-view]:nth-of-type(2){transition-delay:.14s}
+  body:not(.sidebar-collapsed) .sidebar .sidenav[data-view]:nth-of-type(3){transition-delay:.20s}
+  body:not(.sidebar-collapsed) .sidebar .sidenav[data-view]:nth-of-type(4){transition-delay:.26s}
+  body:not(.sidebar-collapsed) .sidebar .sidenav[data-view]:nth-of-type(5){transition-delay:.32s}
+  body:not(.sidebar-collapsed) .sidebar .sidenav[data-view]:nth-of-type(6){transition-delay:.38s}
+  body:not(.sidebar-collapsed) .sidebar .sidebottom{clip-path:inset(0 0 0 0);opacity:1;transform:translateX(0);transition-delay:.42s}
+  body.sidebar-collapsed .sidebar .sidesection,
+  body.sidebar-collapsed .sidebar .sidenav[data-view],
+  body.sidebar-collapsed .sidebar .sidebottom{transition-delay:0s}
+}
+to{opacity:1;transform:translateX(0)}}
+@media(prefers-reduced-motion:reduce){
+ body.dark-mode .card::after,body.dark-mode .export-card::after,body.dark-mode .export-config::after,body.dark-mode .restore-card::after{animation:none!important}
+ @property --rgb-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+}
+
+
+/* v1.2 — tipografia raffinata, focus RGB su inline editabili e placeholder */
+:root{
+ --font-ui:Inter,"Segoe UI Variable","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+ --font-display:"Segoe UI Variable",Inter,"Segoe UI",Roboto,Arial,sans-serif;
+}
+html,body,button,input,textarea,select{font-family:var(--font-ui)}
+h1,h2,h3,h4,.heroTitle,.brand,.sidebrand strong{font-family:var(--font-display);letter-spacing:-.035em}
+body{font-feature-settings:"ss01" on,"cv11" on; text-rendering:optimizeLegibility}
+button,input,textarea,select{font-size:inherit}
+.task{position:relative;isolation:isolate;transition:transform .2s ease,box-shadow .25s ease,border-color .25s ease}
+.task:focus-within{box-shadow:0 0 0 1px #6c63ff,0 0 14px #6c63ff25}
+.task .tasktext{outline:none;border-radius:8px;transition:background .2s ease,color .2s ease,box-shadow .25s ease}
+.task .tasktext:focus{background:transparent;box-shadow:inset 0 0 0 1px transparent;position:relative}
+.task .tasktext:focus::after{content:"";position:absolute;inset:-4px;border-radius:9px;padding:1.5px;background:conic-gradient(from var(--rgb-focus-angle,0deg),#7867ff,#4edfd0,#74a7ff,#ff79c6,#ffb66d,#7867ff);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;animation:rgb-focus-spin 5s linear infinite}
+@keyframes rgb-focus-spin{to{--rgb-focus-angle:360deg}}
+@property --rgb-focus-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+input:focus-visible,textarea:focus-visible,select:focus-visible,
+.templatecreate input:focus,.templatecontrols select:focus,
+#dayNotes:focus,#plannedInput:focus,#doneInput:focus{
+ outline:none!important;border-color:transparent!important;
+ box-shadow:0 0 0 1.5px #8175ff,0 0 0 4px rgba(129,117,255,.12),0 0 16px rgba(78,223,208,.14)!important;
+}
+body.dark-mode input:focus-visible,body.dark-mode textarea:focus-visible,body.dark-mode select:focus-visible,
+body.dark-mode .templatecreate input:focus,body.dark-mode .templatecontrols select:focus,
+body.dark-mode #dayNotes:focus,body.dark-mode #plannedInput:focus,body.dark-mode #doneInput:focus{
+ background:#252738!important;color:#f1f1ff!important;
+ box-shadow:0 0 0 1.5px #8d82ff,0 0 0 4px rgba(141,130,255,.13),0 0 18px rgba(78,223,208,.13)!important;
+}
+body:not(.dark-mode) input:focus-visible,body:not(.dark-mode) textarea:focus-visible,body:not(.dark-mode) select:focus-visible,
+body:not(.dark-mode) .templatecreate input:focus,body:not(.dark-mode) .templatecontrols select:focus,
+body:not(.dark-mode) #dayNotes:focus,body:not(.dark-mode) #plannedInput:focus,body:not(.dark-mode) #doneInput:focus{background:#fff!important;color:#28264f!important}
+body.dark-mode .task .tasktext:focus{color:#f2f2ff}
+body:not(.dark-mode) .task .tasktext:focus{color:#28264f}
+@media(prefers-reduced-motion:reduce){.task .tasktext:focus::after{animation:none!important}}
+
+/* PDF print layout: stronger typography, more whitespace, repeatable A4 sections */
+@media print{
+ body{font-family:Inter,"Segoe UI",Arial,sans-serif!important;color:#252544!important}
+ .day{break-inside:avoid;page-break-inside:avoid;margin-bottom:13px}
+ .day h2{padding:12px 15px;font-size:14px}
+ .cols{gap:13px;padding:14px}
+ .cols>div{padding:13px}
+ h3{font-size:10.5px}
+ li{font-size:10.5px;line-height:1.55;margin-bottom:6px}
+ .notes{padding:11px 12px}
+ .sign{margin-top:30px}
+ .foot{margin-top:24px}
+}
+
+
+/* v1.3 — giorni settimanali con palette distinta, select coerenti e hover fill */
+.daychip{position:relative;isolation:isolate;overflow:hidden;transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .2s,background .25s,color .2s}
+.daychip::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--day-accent,#5146d8);transform:scaleX(0);transform-origin:left;transition:transform .32s cubic-bezier(.16,1,.3,1)}
+.daychip:hover{transform:translateY(-2px);box-shadow:0 9px 22px color-mix(in srgb,var(--day-accent,#5146d8) 24%,transparent);border-color:var(--day-accent,#5146d8)}
+.daychip:hover::before{transform:scaleX(.10)}
+.daychip.active{background:var(--day-accent,#5146d8)!important;border-color:var(--day-accent,#5146d8)!important;color:#fff!important;box-shadow:0 8px 20px color-mix(in srgb,var(--day-accent,#5146d8) 28%,transparent)}
+.daychip.active::before{transform:scaleX(1)}
+.daychip.active .dow,.daychip.active .num,.daychip.active .dot{color:#fff!important}
+.daychip.active .dot{background:#fff!important}
+.daychip:nth-child(1){--day-accent:#6d5ce8}
+.daychip:nth-child(2){--day-accent:#168e9a}
+.daychip:nth-child(3){--day-accent:#d96a3a}
+.daychip:nth-child(4){--day-accent:#4d78dc}
+.daychip:nth-child(5){--day-accent:#16845d}
+.daychip:nth-child(6){--day-accent:#b05bd6}
+.daychip:nth-child(7){--day-accent:#bd5575}
+
+/* Select and native option menus: both themes get legible colors */
+select,.templatecontrols select,.export-config select{
+ appearance:auto;border-radius:13px;transition:border-color .2s,box-shadow .22s,background .22s,color .22s;
+}
+body:not(.dark-mode) select,body:not(.dark-mode) .templatecontrols select,body:not(.dark-mode) .export-config select{
+ background-color:#fff!important;color:#28264f!important;border-color:#dedcf2!important;color-scheme:light;
+}
+body:not(.dark-mode) select option{background:#fff;color:#28264f}
+body.dark-mode select,body.dark-mode .templatecontrols select,body.dark-mode .export-config select{
+ background-color:#252738!important;color:#f0f0ff!important;border-color:#42455d!important;color-scheme:dark;
+}
+body.dark-mode select option{background:#252738;color:#f0f0ff}
+body.dark-mode select:focus,body.dark-mode .templatecontrols select:focus,body.dark-mode .export-config select:focus{
+ border-color:#8175ff!important;box-shadow:0 0 0 1px #8175ff,0 0 0 4px #8175ff20!important;
+}
+body:not(.dark-mode) select:focus,body:not(.dark-mode) .templatecontrols select:focus,body:not(.dark-mode) .export-config select:focus{
+ border-color:#8175ff!important;box-shadow:0 0 0 1px #8175ff,0 0 0 4px #8175ff18!important;
+}
+
+/* Button fill animation: a gradient surface sweeps from left to right on hover/focus */
+button,.button,.primary,.secondary,.smallbtn,.tiny,.iconbtn,.navitem,.sidenav{
+ position:relative;isolation:isolate;overflow:hidden;
+ transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .22s,color .22s,background-color .22s;
+}
+button::before,.button::before,.primary::before,.secondary::before,.smallbtn::before,.tiny::before,.iconbtn::before,.navitem::before,.sidenav::before{
+ content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;
+ background:linear-gradient(105deg,rgba(109,92,232,.16),rgba(22,142,154,.20));
+ transform:scaleX(0);transform-origin:left;transition:transform .34s cubic-bezier(.16,1,.3,1);pointer-events:none;
+}
+button:hover::before,.button:hover::before,.primary:hover::before,.secondary:hover::before,.smallbtn:hover::before,.tiny:hover::before,.iconbtn:hover::before,.navitem:hover::before,.sidenav:hover::before{transform:scaleX(1)}
+button:hover,.button:hover,.primary:hover,.secondary:hover,.smallbtn:hover,.tiny:hover,.iconbtn:hover{transform:translateY(-1px);box-shadow:0 7px 18px rgba(81,70,216,.14)}
+button:active,.button:active,.primary:active,.secondary:active,.smallbtn:active,.tiny:active,.iconbtn:active{transform:translateY(0) scale(.98)}
+button:disabled:hover{transform:none;box-shadow:none}
+button:disabled::before{display:none}
+body.dark-mode button::before,body.dark-mode .button::before,body.dark-mode .primary::before,body.dark-mode .secondary::before,body.dark-mode .smallbtn::before,body.dark-mode .tiny::before,body.dark-mode .iconbtn::before,body.dark-mode .navitem::before,body.dark-mode .sidenav::before{
+ background:linear-gradient(105deg,rgba(141,130,255,.18),rgba(78,223,208,.16),rgba(255,121,198,.12));
+}
+.daychip::before{z-index:0}
+.daychip>*{position:relative;z-index:1}
+.daychip.active::before{z-index:0}
+@media(prefers-reduced-motion:reduce){
+ .daychip,button,.button,.primary,.secondary,.smallbtn,.tiny,.iconbtn,.navitem,.sidenav,select{transition:none!important;transform:none!important}
+ button::before,.button::before,.primary::before,.secondary::before,.smallbtn::before,.tiny::before,.iconbtn::before,.navitem::before,.sidenav::before,.daychip::before{transition:none!important}
+}
+
+
+/* v1.4 — Cioffo Rapportini brand, piscina/biochimica hero, profilo locale */
+.topbar{position:relative;overflow:hidden}
+.toprow{position:relative;min-height:84px}
+.brand-centered{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:13px;width:max-content;max-width:calc(100% - 280px)}
+.brandcopy h1{margin:0;font-size:clamp(17px,2vw,25px);font-weight:950;letter-spacing:.09em;white-space:nowrap;color:#fff}
+.brandcopy h1 span{font-weight:750;letter-spacing:.16em;color:#9feee8}
+.brandcopy p{margin:4px 0 0;font-size:10px;letter-spacing:.04em;color:#d3d8ff}
+.pool-logo{display:grid;place-items:center;width:58px;height:58px;flex:0 0 58px;border-radius:18px;background:linear-gradient(145deg,#efffff,#c4f5ef 48%,#ddd8ff);box-shadow:0 9px 22px #31cfc933,inset 0 1px 0 #fff}
+.pool-logo svg{width:47px;height:47px;filter:drop-shadow(0 3px 5px #5146d822)}
+.profile-avatar{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border-radius:50%;border:2px solid #ffffff80;background:linear-gradient(135deg,#e8fffb,#b9b4ff);color:#353078;font-size:12px;font-weight:900;box-shadow:0 5px 15px #17143c24;cursor:pointer}
+.profile-avatar:hover{box-shadow:0 0 0 4px #62dcd344,0 7px 18px #5146d833}
+.hero-content{position:relative;z-index:2;max-width:750px}
+.heroTitle{font-size:clamp(28px,3.3vw,45px);line-height:1.04;letter-spacing:-.055em}
+.heroTitle span{background:linear-gradient(90deg,#a9fff2,#d2c8ff 55%,#ffc6ab);-webkit-background-clip:text;background-clip:text;color:transparent}
+.heroSub{max-width:690px;font-size:13px;line-height:1.75}
+.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}
+.hero-tags span{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border:1px solid #ffffff25;border-radius:999px;background:#ffffff12;color:#e6f7ff;font-size:10px;font-weight:750;backdrop-filter:blur(8px)}
+.hero-art{position:absolute;right:4%;top:16%;width:clamp(150px,21vw,280px);height:220px;display:grid;place-items:center;pointer-events:none;opacity:.9}
+.hero-orbit{position:absolute;border:1px solid #71e9e24a;border-radius:50%;transform:rotate(-25deg)}
+.orbit-one{width:100%;height:42%;box-shadow:0 0 25px #4edfd01a}
+.orbit-two{width:82%;height:72%;border-color:#8c7cff45;transform:rotate(42deg)}
+.hero-flask{width:110px;height:135px;position:relative;z-index:2;filter:drop-shadow(0 10px 25px #42d5d044);animation:flask-float 5s ease-in-out infinite}
+.hero-flask svg{width:100%;height:100%}
+.hero-water{position:absolute;bottom:18px;width:100%;height:22px;border-radius:50%;background:linear-gradient(90deg,transparent,#42d5d04a,#8478ff5a,transparent);filter:blur(8px)}
+.hero-orbit-dot{position:absolute;top:15%;right:12%;width:10px;height:10px;border-radius:50%;background:#a8fff0;box-shadow:0 0 16px #54f0e7;animation:dot-pulse 2.5s ease-in-out infinite}
+@keyframes flask-float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+@keyframes dot-pulse{0%,100%{opacity:.65;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.profile-overlay{display:none;position:fixed;z-index:1000;inset:0;padding:22px;align-items:center;justify-content:center;background:#101020a8;backdrop-filter:blur(9px)}
+.profile-overlay.open{display:flex;animation:profile-fade .2s ease both}
+.profile-modal{width:min(520px,100%);max-height:min(92vh,820px);overflow:auto;border:1px solid #ffffff30;border-radius:25px;padding:25px;background:#fff;color:#292746;box-shadow:0 30px 100px #0005;animation:profile-pop .32s cubic-bezier(.16,1,.3,1) both}
+.profile-modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.profile-modal-logo{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#e4fffa,#e8e3ff);display:grid;place-items:center}
+.profile-modal-logo svg{width:43px;height:43px}
+.profile-kicker{font-size:9px;font-weight:900;letter-spacing:1.7px;color:#5146d8;margin-bottom:7px}
+.profile-modal h2{font-size:25px;letter-spacing:-.045em;margin:0 0 8px}
+.profile-intro{font-size:12px;line-height:1.7;color:#74758e;margin:0 0 19px}
+.profile-modal form{display:flex;flex-direction:column;gap:8px}
+.profile-modal label{font-size:11px;font-weight:800;color:#343253;margin-top:5px}
+.profile-modal input{width:100%;min-height:45px;padding:12px 13px;border:1px solid #dedcf2;border-radius:12px;background:#fbfbff;color:#292746;font:inherit;font-size:13px}
+.profile-privacy{display:flex;gap:9px;padding:12px;margin:9px 0 4px;border:1px solid #d8f1e5;border-radius:13px;background:#f0fbf5;color:#38735c;font-size:10px;line-height:1.6}
+.profile-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:10px}
+.profile-actions button{min-width:120px}
+@keyframes profile-fade{from{opacity:0}to{opacity:1}}
+@keyframes profile-pop{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+body.modal-open{overflow:hidden}
+body.dark-mode .profile-modal{background:#1c1e2b;color:#eef0ff;border-color:#42455d}
+body.dark-mode .profile-intro{color:#a7abc5}
+body.dark-mode .profile-modal label{color:#e0e2f7}
+body.dark-mode .profile-modal input{background:#252738;color:#eef0ff;border-color:#42455d}
+body.dark-mode .profile-privacy{background:#172d27;border-color:#285447;color:#a7ebca}
+body.dark-mode .profile-kicker{color:#aaa2ff}
+body.dark-mode .profile-modal-logo{background:#302d50}
+body.dark-mode .profile-avatar{background:linear-gradient(135deg,#302d50,#23524f);color:#e8e6ff;border-color:#5a5d78}
+@media(max-width:760px){
+ .toprow{min-height:78px}
+ .brand-centered{left:0;transform:translateY(-50%);max-width:calc(100% - 150px);gap:8px}
+ .pool-logo{width:42px;height:42px;flex-basis:42px;border-radius:13px}
+ .pool-logo svg{width:35px;height:35px}
+ .brandcopy h1{font-size:14px;letter-spacing:.03em}.brandcopy h1 span{letter-spacing:.06em}
+ .brandcopy p{display:none}
+ .topactions{gap:4px}.topactions .savebadge,.topactions .undobtn,.topactions #backupBtn{display:none}
+ .hero-art{right:-15px;top:5%;width:145px;height:150px;opacity:.45}
+ .heroTitle{font-size:30px;max-width:90%}.heroSub{max-width:90%}
+}
+@media(prefers-reduced-motion:reduce){.hero-flask,.hero-orbit-dot{animation:none!important}.profile-overlay.open,.profile-modal{animation:none!important}}
+
+
+/* v1.5 — help center, decorative backgrounds, footer and collapsed icon visibility */
+.help-hero{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:220px;padding:30px 34px;border-radius:26px;background:linear-gradient(115deg,#28244f 0%,#4542a5 52%,#167f91 100%);color:#fff;box-shadow:0 18px 45px #332b7d25;margin-bottom:20px}
+.help-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 12% 18%,#a6fff42a 0 2px,transparent 3px),radial-gradient(circle at 19% 64%,#ffffff20 0 1px,transparent 2px),radial-gradient(circle at 70% 30%,#ffffff18 0 2px,transparent 3px),linear-gradient(125deg,transparent 35%,#ffffff0b 35% 36%,transparent 36% 70%,#ffffff0a 70% 71%,transparent 71%);background-size:42px 42px,55px 55px,63px 63px,100% 100%}
+.help-hero-copy{position:relative;z-index:2;max-width:680px}
+.help-hero h2{font-size:clamp(27px,3vw,39px);line-height:1.08;letter-spacing:-.05em;margin:9px 0 12px}
+.help-hero h2 span{color:#a9fff2}
+.help-hero p{font-size:12px;line-height:1.75;max-width:620px;color:#e3e8ff;margin:0}
+.help-art{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:190px;height:170px;display:grid;place-items:center;opacity:.9}
+.help-orbit{position:absolute;width:150px;height:110px;border:1px solid #a9fff27a;border-radius:50%;transform:rotate(-30deg);box-shadow:0 0 40px #63e4dd20}
+.help-bubble{display:grid;place-items:center;width:92px;height:92px;border-radius:29px 29px 29px 8px;background:linear-gradient(145deg,#b4fff1,#d4ccff);color:#37316e;font-size:52px;font-weight:900;box-shadow:0 15px 35px #14143e50;transform:rotate(-7deg)}
+.help-spark{position:absolute;right:18px;top:15px;color:#ffcf9c;font-size:28px;text-shadow:0 0 20px #ffcf9c80}
+.help-search{padding:18px 20px;margin-bottom:23px;background-image:radial-gradient(circle at 100% 0,#8e83ff13,transparent 38%)}
+.help-search label{display:block;font-size:12px;font-weight:850;margin-bottom:9px}
+.help-searchbar{display:flex;align-items:center;gap:10px;padding:0 13px;border:1px solid var(--line);border-radius:14px;background:var(--white);min-height:46px}
+.help-searchbar>span{font-size:24px;color:#7569dd}
+.help-searchbar input{width:100%;border:0!important;outline:none!important;background:transparent!important;color:var(--ink)!important;box-shadow:none!important}
+.help-search>p{margin:8px 0 0;font-size:10px;color:var(--muted)}
+.help-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 2px 12px}
+.help-section-head h3{margin:0 0 4px;font-size:18px}
+.help-section-head p{margin:0;color:var(--muted);font-size:11px}
+.faq-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.faq-item{min-width:0;align-self:start;border:1px solid var(--line);border-radius:16px;background:var(--white);box-shadow:0 6px 18px #29245a08;overflow:hidden;transition:border-color .2s,box-shadow .2s,transform .2s}
+.faq-item:hover{border-color:#b6b0ff;box-shadow:0 10px 25px #5146d817;transform:translateY(-1px)}
+.faq-item[hidden]{display:none}
+.faq-item summary{display:grid;grid-template-columns:32px minmax(0,1fr) 22px;align-items:center;gap:11px;list-style:none;padding:15px;cursor:pointer}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-num{display:grid;place-items:center;width:31px;height:31px;border-radius:10px;background:#eeecff;color:#5146d8;font-size:10px;font-weight:900}
+.faq-item summary strong,.faq-item summary small{display:block}
+.faq-item summary strong{font-size:12px;line-height:1.4;color:var(--ink)}
+.faq-item summary small{margin-top:3px;font-size:10px;color:var(--muted)}
+.faq-chevron{display:grid;place-items:center;width:22px;height:22px;border-radius:8px;background:#f2f0ff;color:#5146d8;font-size:15px}
+.faq-answer{padding:0 18px 17px 58px;font-size:11px;line-height:1.8;color:var(--muted)}
+.faq-answer ol{padding-left:17px;margin:0}
+.faq-answer li{margin:0 0 5px}
+.faq-answer strong{color:var(--ink)}
+.help-contact{display:flex;align-items:center;gap:14px;margin-top:18px;padding:18px;background-image:linear-gradient(110deg,#50c8bd12,#8175ff12)}
+.help-contact-icon{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#c9fff4,#dcd6ff);color:#5146d8;font-size:20px}
+.help-contact>div:nth-child(2){flex:1}
+.help-contact h3{margin:0 0 4px;font-size:13px}
+.help-contact p{margin:0;font-size:11px;line-height:1.65;color:var(--muted)}
+/* Footer is a real end-cap, not a plain leftover line */
+main>footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:28px 2px 0;padding:15px 17px;border:1px solid var(--line);border-radius:15px;background:linear-gradient(105deg,#5146d80b,#21b6ad0b);color:var(--muted);font-size:10px;letter-spacing:.02em}
+main>footer::before{content:"";width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:linear-gradient(135deg,#5146d8,#4edfd0);box-shadow:0 0 10px #4edfd055;margin-right:-4px}
+/* Critical fix: icons remain visible while desktop sidebar is collapsed */
+@media(min-width:1100px){
+ body.sidebar-collapsed .sidebar{width:78px!important}
+ body.sidebar-collapsed .sidebar .sidenav[data-view]{display:flex!important;visibility:visible!important;opacity:1!important;clip-path:inset(0 0 0 0)!important;transform:none!important;justify-content:center!important;align-items:center!important;width:100%!important;min-width:0;padding:13px 8px!important;font-size:0!important;gap:0!important;overflow:visible!important}
+ body.sidebar-collapsed .sidebar .sidenav[data-view] span{display:inline-flex!important;visibility:visible!important;opacity:1!important;clip-path:none!important;transform:none!important;width:24px!important;min-width:24px!important;height:24px;align-items:center;justify-content:center;font-size:20px!important;line-height:1!important;color:inherit!important;flex:0 0 24px}
+ body.sidebar-collapsed .sidebar .sidenav[data-view]::before{z-index:-1}
+ body.sidebar-collapsed .sidebar .sidebrand .logo{display:grid!important;visibility:visible!important;opacity:1!important}
+ body.sidebar-collapsed .sidebar .sidebrand{justify-content:center!important}
+ body.sidebar-collapsed .sidebar .sidebrand>div:last-child{display:none!important}
+ body.sidebar-collapsed .sidebar .sidesection{display:none!important}
+}
+body.dark-mode .help-search,body.dark-mode .faq-item,body.dark-mode .help-contact{background-color:#1c1e2b;border-color:#393b54}
+body.dark-mode .help-searchbar{background:#252738;border-color:#42455d}
+body.dark-mode .help-searchbar input{color:#f0f0ff!important}
+body.dark-mode .faq-num,body.dark-mode .faq-chevron{background:#302d50;color:#bcb5ff}
+body.dark-mode .faq-item summary strong,body.dark-mode .faq-answer strong,body.dark-mode .help-contact h3{color:#eef0ff}
+body.dark-mode main>footer{background:linear-gradient(105deg,#5146d81a,#21b6ad12);border-color:#393b54}
+@media(max-width:850px){.faq-list{grid-template-columns:1fr}.help-art{right:-25px;opacity:.35}.help-hero{padding:24px}.help-hero-copy{max-width:100%}.help-hero p{max-width:90%}.help-contact{align-items:flex-start;flex-wrap:wrap}.help-contact button{margin-left:56px}}
+@media(prefers-reduced-motion:reduce){.help-hero *{animation:none!important}.faq-item{transition:none!important}}
+
+
+/* v1.6 — agenda mensile, modal calendario e note per ogni giorno */
+.weeklabel-button{border:0;cursor:pointer;font:inherit;color:inherit;background:transparent;border-radius:13px;padding:7px 15px;transition:background .2s,transform .2s}
+.weeklabel-button:hover{background:linear-gradient(100deg,#5146d812,#39cfc912);transform:translateY(-1px)}
+.weeklabel-button small{display:block}
+.agenda-hero{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:190px;padding:27px 32px;border-radius:25px;background:linear-gradient(115deg,#242149,#5146b6 55%,#158b92);color:#fff;box-shadow:0 18px 40px #342d7b20;margin-bottom:18px}
+.agenda-hero:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 15% 25%,#b4fff333 0 2px,transparent 3px),radial-gradient(circle at 60% 65%,#ffffff18 0 2px,transparent 3px);background-size:44px 44px,61px 61px}
+.agenda-hero h2{font-size:clamp(28px,3vw,39px);line-height:1.05;letter-spacing:-.05em;margin:8px 0}
+.agenda-hero h2 span{color:#a9fff2}.agenda-hero p{font-size:12px;line-height:1.7;max-width:570px;color:#e5e9ff;margin:0}
+.agenda-hero-art{position:absolute;right:7%;width:140px;height:130px;display:grid;place-items:center}
+.agenda-calendar-icon{width:88px;height:91px;border-radius:19px;background:linear-gradient(145deg,#f9ffff,#d8d5ff);box-shadow:0 15px 35px #12123855;transform:rotate(6deg);overflow:hidden;color:#353078;text-align:center}
+.agenda-calendar-icon span{display:block;padding:9px;background:linear-gradient(90deg,#5ce1df,#8175ff);color:#fff;font-size:10px;font-weight:900;letter-spacing:2px}
+.agenda-calendar-icon strong{display:block;font-size:42px;line-height:1.45}
+.agenda-hero-art i,.agenda-hero-art b{position:absolute;width:9px;height:9px;border-radius:50%;background:#a9fff2;box-shadow:0 0 15px #a9fff2}
+.agenda-hero-art i{right:5px;top:12px}.agenda-hero-art b{left:5px;bottom:10px;width:6px;height:6px;background:#ffc6ab}
+.agenda-toolbar{display:flex;align-items:center;justify-content:center;gap:12px;padding:12px 16px;margin-bottom:15px}
+.agenda-toolbar>div{min-width:180px;text-align:center}.agenda-toolbar strong{display:block;color:var(--ink);font-size:15px}.agenda-toolbar small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.agenda-toolbar button{min-width:40px}.agenda-toolbar #agendaToday,.agenda-toolbar #modalToday{margin-left:8px}
+.agenda-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(270px,.75fr);gap:15px;align-items:start}
+.agenda-calendar{padding:18px}
+.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}
+.calendar-weekdays{margin-bottom:9px}.calendar-weekdays span{text-align:center;color:var(--muted);font-size:10px;font-weight:850;padding:6px 0}
+.calendar-cell{position:relative;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px;padding:9px 3px 6px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);cursor:pointer;transition:transform .18s,border-color .2s,background .2s,box-shadow .2s}
+.calendar-cell:hover{transform:translateY(-2px);border-color:#8d82ff;box-shadow:0 7px 15px #5146d817}
+.calendar-cell.muted{opacity:.4}.calendar-cell.today{border-color:#35b9b0;box-shadow:inset 0 0 0 1px #35b9b0}
+.calendar-cell.selected{background:linear-gradient(145deg,#5146d8,#168e9a);border-color:transparent;color:#fff;box-shadow:0 7px 17px #5146d833}
+.calendar-cell .cal-num{font-size:13px;font-weight:850}.calendar-cell .cal-dots{display:flex;gap:3px;min-height:5px}
+.cal-dots i{width:5px;height:5px;border-radius:50%;background:#8175ff}.cal-dots i.done{background:#20ad81}.cal-dots i.note{background:#edaa46}
+.calendar-cell.selected .cal-dots i{background:#fff}
+.agenda-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:15px;padding-top:13px;border-top:1px solid var(--line)}
+.agenda-legend span{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted)}
+.agenda-legend i{width:7px;height:7px;border-radius:50%;display:inline-block}.legend-plan{background:#8175ff}.legend-done{background:#20ad81}.legend-note{background:#edaa46}
+.agenda-day{padding:21px;position:sticky;top:16px;background-image:radial-gradient(circle at 100% 0,#8175ff14,transparent 40%)}
+.agenda-day-kicker{font-size:9px;letter-spacing:1.5px;font-weight:900;color:#6d61d9}
+.agenda-day h3{font-size:20px;letter-spacing:-.04em;margin:8px 0 12px;color:var(--ink)}
+.agenda-day-counts{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:19px}
+.agenda-day-counts span{padding:6px 9px;border-radius:999px;background:#eeecff;color:#5146d8;font-size:9px;font-weight:800}
+.agenda-day-counts span+span{background:#ddf8ef;color:#147853}
+.agenda-day label{display:block;font-size:11px;font-weight:850;margin-bottom:7px;color:var(--ink)}
+.agenda-day textarea{width:100%;resize:vertical;min-height:130px;border:1px solid var(--line);border-radius:13px;padding:12px;background:var(--white);color:var(--ink);font:inherit;font-size:12px;line-height:1.6}
+.agenda-save-status{font-size:10px;line-height:1.5;color:var(--muted);margin:8px 0 14px}
+.agenda-day>button{width:100%}
+.calendar-overlay{display:none;position:fixed;inset:0;z-index:1200;padding:22px;background:#101020b8;backdrop-filter:blur(10px);align-items:center;justify-content:center}
+.calendar-overlay.open{display:flex;animation:calendarFade .2s ease both}
+.calendar-modal{width:min(1120px,100%);height:min(900px,94vh);overflow:auto;background:var(--white);color:var(--ink);border:1px solid #ffffff40;border-radius:27px;box-shadow:0 35px 110px #0006;animation:calendarPop .3s cubic-bezier(.16,1,.3,1) both}
+.calendar-modal-head{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:23px 27px;border-bottom:1px solid var(--line);background:linear-gradient(100deg,#5146d80d,#39cfc90c)}
+.calendar-modal-head h2{margin:5px 0;font-size:26px;letter-spacing:-.05em}.calendar-modal-head p{margin:0;color:var(--muted);font-size:11px}
+.calendar-close{width:42px;height:42px;border:1px solid var(--line);border-radius:13px;background:var(--white);color:var(--ink);font-size:25px;cursor:pointer}
+.calendar-modal-body{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(270px,.7fr);gap:16px;padding:20px}
+.calendar-modal-main{min-width:0}.modal-toolbar{box-shadow:none;border:1px solid var(--line)}.modal-calendar{padding:15px}
+.modal-calendar .calendar-cell{min-height:68px}
+.modal-day{position:static}
+@keyframes calendarFade{from{opacity:0}to{opacity:1}}
+@keyframes calendarPop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+body.dark-mode .agenda-hero,body.dark-mode .help-hero{box-shadow:0 18px 45px #0003}
+body.dark-mode .agenda-day-counts span{background:#302d50;color:#c5bfff}
+body.dark-mode .agenda-day-counts span+span{background:#173c32;color:#a9f0cf}
+body.dark-mode .calendar-cell{background:#202231;border-color:#393b54;color:#eef0ff}
+body.dark-mode .calendar-cell.selected{background:linear-gradient(145deg,#6255df,#147c83)}
+body.dark-mode .calendar-modal{background:#1b1d2b;border-color:#393b54}
+body.dark-mode .calendar-modal-head{background:linear-gradient(100deg,#5146d81b,#39cfc912)}
+body.dark-mode .calendar-close{background:#252738;border-color:#42455d;color:#f0f0ff}
+body.dark-mode .agenda-day textarea{background:#252738;border-color:#42455d;color:#f0f0ff}
+body.dark-mode .agenda-toolbar strong{color:#f0f0ff}
+@media(max-width:900px){.agenda-layout{grid-template-columns:1fr}.agenda-day{position:static}.calendar-modal-body{grid-template-columns:1fr}.calendar-modal{height:94vh}.modal-day{display:grid;grid-template-columns:1fr 1fr;gap:10px}.modal-day h3,.modal-day .agenda-day-kicker,.modal-day .agenda-day-counts{grid-column:1/-1}.modal-day textarea{min-height:95px}}
+@media(max-width:600px){.agenda-hero{padding:22px}.agenda-hero-art{right:-24px;opacity:.35}.agenda-toolbar{gap:6px;padding:10px}.agenda-toolbar>div{min-width:0;flex:1}.agenda-toolbar button{min-width:34px;padding:8px}.agenda-calendar{padding:9px}.calendar-weekdays,.calendar-grid{gap:4px}.calendar-cell{min-height:48px;border-radius:9px;padding:7px 1px}.calendar-cell .cal-num{font-size:11px}.calendar-modal{border-radius:18px}.calendar-modal-head{padding:17px}.calendar-modal-head h2{font-size:21px}.calendar-modal-body{padding:10px}.modal-calendar .calendar-cell{min-height:48px}.modal-day{display:block}.calendar-overlay{padding:8px}}
+@media(prefers-reduced-motion:reduce){.calendar-overlay.open,.calendar-modal{animation:none!important}.calendar-cell,.weeklabel-button{transition:none!important}}
+
+
+/* Cioffo Rapportini v1.8 UI refresh. Navigation intentionally untouched. */
+:root{--ink:#17243b;--muted:#65748b;--teal:#4f46e5;--teal2:#e9eaff;--mint:#d9f7e9;--green:#12805c;--blue:#e2efff;--paper:#f4f6fb;--white:#fff;--line:#e1e7f0;--gold:#fff2d7;--shadow:0 16px 42px rgba(27,42,80,.09);--radius:22px}
+body{background:radial-gradient(ellipse at 78% 0%,rgba(91,105,245,.09),transparent 34%),var(--paper);letter-spacing:.005em}
+.topbar{background:linear-gradient(120deg,#202c55,#4945c6 52%,#078c94);box-shadow:0 18px 42px rgba(39,47,113,.18)}
+.topbar:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 20%,#ffffff0d 45%,transparent 68%);background-size:220% 100%;animation:headerShimmer 12s linear infinite;pointer-events:none}
+@keyframes headerShimmer{0%{background-position:180% 0}100%{background-position:-40% 0}}
+.card,.export-card,.export-config,.restore-card,.weeknav,.daychip,.mode{transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s,border-color .24s,background .24s}
+.card{border-color:#e3e8f2;box-shadow:0 5px 18px #1e2d5209}
+.card:hover,.export-card:hover,.restore-card:hover{transform:translateY(-3px);box-shadow:0 18px 38px #1e2d521a;border-color:#cfd7f4}
+.exporthero{background:linear-gradient(120deg,#202c55,#4945c6 54%,#078c94);box-shadow:0 18px 42px #272f7129;position:relative;overflow:hidden}
+.exporthero:after{content:"";position:absolute;width:280px;height:280px;right:-90px;top:-155px;border:1px solid #ffffff24;border-radius:50%;box-shadow:0 0 0 28px #ffffff08,0 0 0 58px #ffffff06;pointer-events:none}
+.export-config,.export-card,.restore-card{box-shadow:0 8px 26px #1e2d520b}.export-config{border-color:#e2e7f1}
+.export-config input,.export-config select,.field input,.field textarea,.field select{transition:border-color .2s,box-shadow .2s}
+.export-config input:focus,.export-config select:focus,.field input:focus,.field textarea:focus,.field select:focus{border-color:#8178ee;box-shadow:0 0 0 4px #635bdc1f}
+.primary,.addbtn{background:linear-gradient(120deg,#5146d8,#087f91);box-shadow:0 7px 16px #5146d838;transition:transform .2s,box-shadow .2s,filter .2s}.primary:hover,.addbtn:hover{transform:translateY(-2px);box-shadow:0 11px 23px #5146d845;filter:saturate(1.12)}
+.secondary,.smallbtn,.mode,.pill{transition:transform .2s,box-shadow .2s,border-color .2s,background .2s}.secondary:hover,.smallbtn:hover,.mode:hover{transform:translateY(-2px);box-shadow:0 8px 18px #1e2d5214;border-color:#c6cafa}
+.task{transition:transform .18s,border-color .18s,box-shadow .18s}.task:hover{transform:translateX(2px);border-color:#d4d9f5;box-shadow:0 4px 12px #1e2d520a}
+.daychip:hover{transform:translateY(-2px);box-shadow:0 7px 16px #1e2d5214}.toast{backdrop-filter:blur(14px);box-shadow:0 14px 40px #121c3738;animation:toastEnter .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes toastEnter{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}.micbig{transition:transform .22s,box-shadow .22s}.micbig:hover{transform:scale(1.045)}.export-format-icon{transition:transform .25s cubic-bezier(.2,.8,.2,1)}.export-card:hover .export-format-icon{transform:rotate(-5deg) scale(1.06)}
+body.dark-mode{background:radial-gradient(ellipse at 80% 0%,rgba(91,105,245,.10),transparent 35%),var(--paper)}body.dark-mode .card,body.dark-mode .export-card,body.dark-mode .export-config,body.dark-mode .restore-card{box-shadow:0 12px 30px #0002}
+@media(prefers-reduced-motion:reduce){.topbar:before{animation:none!important}.card,.export-card,.restore-card,.weeknav,.daychip,.mode,.primary,.addbtn,.secondary,.smallbtn,.task,.micbig,.export-format-icon{transition:none!important;animation:none!important;transform:none!important}}
+
+
+/* v1.9 — Studio UI refresh. Navigation/sidebar selectors intentionally untouched. */
+:root{--ink:#17243b;--muted:#697991;--teal:#5146d8;--teal2:#eeedff;--mint:#dff8ed;--green:#12805c;--blue:#e8f1ff;--paper:#f4f6fb;--white:#fff;--line:#e1e7f0;--gold:#fff3dc;--shadow:0 18px 48px rgba(25,39,77,.09);--radius:22px}
+body{background:radial-gradient(ellipse at 78% 4%,rgba(93,91,229,.10),transparent 33%),radial-gradient(ellipse at 22% 35%,rgba(31,190,174,.055),transparent 30%),var(--paper);color:var(--ink)}
+.app{max-width:1440px}
+.topbar{border-radius:0 0 34px 34px;background:linear-gradient(118deg,#151e3c 0%,#343b86 44%,#5146d8 72%,#078b91 100%);box-shadow:0 24px 65px rgba(34,43,105,.22);isolation:isolate}
+.topbar:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(112deg,transparent 10%,rgba(255,255,255,.08) 42%,transparent 68%);background-size:220% 100%;animation:cioffoLightSweep 13s linear infinite}
+.topbar:after{width:340px;height:340px;right:-110px;bottom:-210px;border:1px solid #ffffff24;box-shadow:0 0 0 28px #ffffff08,0 0 0 58px #ffffff05}
+@keyframes cioffoLightSweep{0%{background-position:180% 0}100%{background-position:-40% 0}}
+.hero-content{max-width:760px;position:relative;z-index:2}.eyebrow{color:#a7fff0;letter-spacing:2px;font-size:10px}.heroTitle{font-size:clamp(32px,4vw,48px);letter-spacing:-1.7px;line-height:1.06;max-width:720px}.heroTitle span{background:linear-gradient(90deg,#b9fff1,#d9d7ff 58%,#fff);-webkit-background-clip:text;background-clip:text;color:transparent}.heroSub{font-size:14px;line-height:1.7;max-width:590px;color:#d8e3ff}.hero-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:17px}.hero-tags span{border:1px solid #ffffff28;background:#ffffff12;border-radius:999px;padding:7px 11px;font-size:11px;color:#f0f6ff;backdrop-filter:blur(12px)}
+.hero-art{opacity:.88;filter:drop-shadow(0 22px 28px #111b4533)}.hero-flask{animation:cioffoFloat 6s ease-in-out infinite}.orbit-one{animation:cioffoOrbit 22s linear infinite}.orbit-two{animation:cioffoOrbit 30s linear infinite reverse}.hero-orbit-dot{animation:cioffoFloat 4s ease-in-out infinite reverse}
+@keyframes cioffoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}@keyframes cioffoOrbit{to{transform:rotate(360deg)}}
+main{padding:clamp(18px,2.4vw,34px) clamp(14px,2.5vw,36px)}
+.sectionhead{margin:12px 2px 15px}.sectionhead h2{font-size:clamp(19px,2vw,23px);letter-spacing:-.65px;font-weight:800}.sectionhead p{font-size:12px;line-height:1.6}
+.card,.weeknav,.daychip,.export-card,.export-config,.restore-card,.mode{border-color:#e0e6f1;box-shadow:0 5px 22px rgba(28,42,79,.035);transition:transform .24s cubic-bezier(.2,.8,.2,1),box-shadow .24s,border-color .24s,background .24s}
+.card{border-radius:22px;padding:clamp(15px,1.7vw,23px);box-shadow:0 6px 25px rgba(28,42,79,.045),0 1px 2px rgba(28,42,79,.025)}
+.card:before{height:3px;background:linear-gradient(90deg,#5146d8 0%,#18b9b0 52%,#f2a78d 100%)}
+.card:hover,.export-card:hover,.restore-card:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(28,42,79,.095);border-color:#cfd7f6}
+.cardhead{margin-bottom:17px}.cardicon{box-shadow:inset 0 1px #ffffffb0}.cardtitle h3{font-size:15px;letter-spacing:-.2px}.cardtitle p{line-height:1.5}
+.weeknav{border-radius:18px;padding:11px;background:rgba(255,255,255,.9);backdrop-filter:blur(14px)}.weeknav button{transition:transform .2s,background .2s}.weeknav button:hover{transform:scale(1.06);background:#eae9ff}.weeklabel{font-size:14px}
+.daystrip{gap:8px}.daychip{border-radius:16px;padding:12px 3px 10px}.daychip:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(36,46,100,.10)}.daychip.active{background:linear-gradient(145deg,#37328e,#6259e8 68%,#0b9a9b);box-shadow:0 9px 22px #5146d844}
+.task{border-color:#e9edf4;background:linear-gradient(135deg,#fff,#fafbff);border-radius:14px;transition:transform .18s,border-color .18s,box-shadow .18s}.task:hover{transform:translateX(3px);border-color:#d4d9f5;box-shadow:0 5px 15px rgba(30,45,82,.055)}
+.taskcheck{accent-color:#5146d8}.count{background:#f0f2fa;color:#65718a}.empty{border-color:#cfd8e8;background:linear-gradient(135deg,#fafbff,#f7fbfb);color:#718097}
+.primary,.addbtn{background:linear-gradient(115deg,#5146d8,#3e62d5 55%,#078d91);box-shadow:0 7px 18px rgba(81,70,216,.2);transition:transform .2s,box-shadow .2s,filter .2s}.primary:hover,.addbtn:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(81,70,216,.28);filter:saturate(1.12)}
+.secondary,.smallbtn,.pill,.mode{transition:transform .2s,box-shadow .2s,border-color .2s,background .2s}.secondary:hover,.smallbtn:hover,.pill:hover,.mode:hover{transform:translateY(-2px);border-color:#c9cdf4;box-shadow:0 8px 18px rgba(28,42,79,.075)}
+.field input,.field textarea,.field select,.templatecontrols select,.templatecreate input,.export-config input,.export-config select{transition:border-color .2s,box-shadow .2s,background .2s}.field input:focus,.field textarea:focus,.field select:focus,.templatecontrols select:focus,.templatecreate input:focus,.export-config input:focus,.export-config select:focus{border-color:#8d86f1;box-shadow:0 0 0 4px rgba(81,70,216,.12)}
+.micbig{box-shadow:0 0 0 9px #e9e7ff,0 12px 28px #5146d82b;transition:transform .22s,box-shadow .22s}.micbig:hover{transform:scale(1.045)}
+.export-config,.export-card,.restore-card{border-radius:20px;box-shadow:0 8px 28px rgba(28,42,79,.05)}.exporthero{border-radius:26px;background:linear-gradient(118deg,#151e3c 0%,#343b86 44%,#5146d8 72%,#078b91 100%);box-shadow:0 22px 48px rgba(34,43,105,.2)}
+.toast{backdrop-filter:blur(16px);box-shadow:0 16px 42px rgba(18,28,55,.24);animation:cioffoToastIn .26s cubic-bezier(.2,.8,.2,1)}@keyframes cioffoToastIn{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+.view.active{animation:cioffoViewIn .28s ease both}@keyframes cioffoViewIn{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+body.dark-mode{background:radial-gradient(ellipse at 78% 4%,rgba(93,91,229,.12),transparent 33%),#121522;color:#edf0ff}body.dark-mode .card,body.dark-mode .weeknav,body.dark-mode .daychip,body.dark-mode .export-card,body.dark-mode .export-config,body.dark-mode .restore-card,body.dark-mode .mode{box-shadow:0 12px 32px #0002}body.dark-mode .task{background:#1a2030;border-color:#30384c}body.dark-mode .empty{background:#191f2d;border-color:#353c50}
+@media(max-width:760px){.heroTitle{font-size:30px}.hero-art{opacity:.36;right:-35px}.heroStats{gap:7px}.stat{padding:10px 8px}.stat strong{font-size:18px}.daystrip{gap:4px}.daychip{border-radius:12px;padding:8px 1px}.daychip .dow{font-size:9px}.daychip .num{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.topbar:before,.hero-flask,.orbit-one,.orbit-two,.hero-orbit-dot,.view.active,.toast{animation:none!important}.card,.weeknav,.daychip,.export-card,.export-config,.restore-card,.mode,.primary,.addbtn,.secondary,.smallbtn,.pill,.task,.micbig{transition:none!important}}
+
+
+/* v1.10 — cronologia versioni e controllo aggiornamenti */
+.version-btn{display:inline-flex;align-items:center;gap:7px;min-height:38px;padding:0 13px;border:1px solid #8d87f65c;border-radius:13px;background:linear-gradient(135deg,#f2f0ff,#e7fffb);color:#4940a4;font:800 11px inherit;cursor:pointer;white-space:nowrap;transition:transform .2s,box-shadow .2s,filter .2s;box-shadow:0 5px 16px #5146d812}
+.version-btn:hover{transform:translateY(-2px);box-shadow:0 9px 22px #5146d82a;filter:saturate(1.15)}.version-btn .version-dot{width:7px;height:7px;border-radius:50%;background:#19b99a;box-shadow:0 0 0 4px #19b99a20}
+.version-overlay{position:fixed;inset:0;z-index:10050;display:flex;align-items:center;justify-content:center;padding:18px;background:#101126a8;backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .24s,visibility .24s}
+.version-overlay.open{opacity:1;visibility:visible}.version-modal{width:min(680px,100%);max-height:min(88vh,850px);overflow:auto;border:1px solid #ffffff42;border-radius:26px;background:var(--white);color:var(--ink);box-shadow:0 35px 110px #0006;transform:translateY(18px) scale(.97);opacity:.6;transition:transform .34s cubic-bezier(.16,1,.3,1),opacity .24s}
+.version-overlay.open .version-modal{transform:translateY(0) scale(1);opacity:1}.version-head{position:relative;overflow:hidden;padding:25px 28px 23px;background:linear-gradient(120deg,#292452,#5146d8 58%,#128c91);color:#fff}.version-head:after{content:"";position:absolute;width:240px;height:240px;right:-65px;top:-130px;border:1px solid #ffffff38;border-radius:50%;box-shadow:0 0 0 25px #ffffff09,0 0 0 52px #ffffff07}.version-headrow{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;position:relative;z-index:1}.version-kicker{font-size:9px;letter-spacing:.16em;font-weight:900;color:#b9fff0}.version-head h2{margin:8px 0 7px;font-size:clamp(23px,4vw,31px);letter-spacing:-.05em}.version-head p{max-width:470px;margin:0;color:#e5e7ff;font-size:11px;line-height:1.7}.version-close{width:36px;height:36px;border:1px solid #ffffff48;border-radius:12px;background:#ffffff18;color:#fff;font-size:24px;cursor:pointer;transition:transform .2s,background .2s}.version-close:hover{transform:rotate(90deg);background:#ffffff30}.version-current{display:inline-flex;align-items:center;gap:8px;margin-top:15px;padding:7px 11px;border:1px solid #ffffff42;border-radius:999px;background:#ffffff16;font-size:10px;font-weight:850}.version-current b{color:#baffef}.version-body{padding:22px 26px 25px}.version-release-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 14px}.version-release-title h3{font-size:14px;margin:0}.version-release-title span{font-size:10px;color:var(--muted)}.version-timeline{position:relative;display:grid;gap:11px}.version-timeline:before{content:"";position:absolute;left:15px;top:16px;bottom:16px;width:2px;background:linear-gradient(#5146d8,#39cfc9,#ddd9ff)}.version-release{position:relative;display:grid;grid-template-columns:31px minmax(0,1fr);gap:12px;animation:versionItemIn .42s both;animation-delay:var(--delay,0ms)}.version-marker{z-index:1;display:grid;place-items:center;width:31px;height:31px;border:3px solid var(--white);border-radius:50%;background:linear-gradient(135deg,#5146d8,#39cfc9);color:white;box-shadow:0 0 0 1px #5146d835;font-size:11px;font-weight:900}.version-release-card{padding:13px 15px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(120deg,#5146d808,#39cfc908);transition:transform .2s,border-color .2s,box-shadow .2s}.version-release-card:hover{transform:translateX(3px);border-color:#9c94f2;box-shadow:0 8px 22px #5146d810}.version-release-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.version-release-top strong{font-size:12px}.version-release-top time{font-size:9px;color:var(--muted)}.version-release-card p{margin:6px 0 0;font-size:11px;line-height:1.65;color:var(--muted)}.version-tag{display:inline-flex;padding:4px 7px;border-radius:7px;background:#dffaf2;color:#087d68;font-size:9px;font-weight:900}.version-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:20px;padding-top:17px;border-top:1px solid var(--line)}.version-actions .primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:43px}.version-status{flex:1;min-width:180px;font-size:10px;line-height:1.6;color:var(--muted)}.version-status[data-state="busy"]{color:#5146d8}.version-status[data-state="ok"]{color:#12856f}.version-status[data-state="error"]{color:#b45309}.version-status b{color:var(--ink)}
+body.dark-mode .version-btn{background:linear-gradient(135deg,#302b51,#1d4248);color:#e5e4ff;border-color:#6e66c5}.dark-mode .version-release-card{background:#202232}.dark-mode .version-tag{background:#163c37;color:#9cf5df}.dark-mode .version-marker{border-color:#1b1d2b}
+@keyframes versionItemIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.version-btn{min-height:35px;padding:0 9px;font-size:10px}.version-overlay{padding:9px}.version-modal{max-height:94vh;border-radius:20px}.version-head{padding:20px}.version-body{padding:17px 14px 19px}.version-release-card{padding:11px}.version-actions{align-items:stretch}.version-actions .primary{width:100%}.version-status{flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){.version-overlay,.version-modal,.version-btn,.version-close,.version-release-card{transition:none!important}.version-release{animation:none!important}}
+
+
+.update-release-link{display:inline-flex;align-items:center;gap:5px;margin:8px 0 0;color:var(--accent,#5146d8);font-weight:800;text-decoration:underline;text-underline-offset:3px}.update-spin{display:inline-block;animation:updateSpin .8s linear infinite}@keyframes updateSpin{to{transform:rotate(360deg)}}
+
+/* © 2026 Giuseppe Cioffo (Pepix) — PepixGames. Bug reporting modal. */
+.footer-bug-link{border:0;background:transparent;color:var(--muted);font:inherit;font-weight:800;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px 6px}.footer-credit{font-weight:750;color:var(--muted)}
+.bug-overlay{position:fixed;inset:0;z-index:10070;display:flex;align-items:center;justify-content:center;padding:16px;background:#101126ad;backdrop-filter:blur(9px);opacity:0;visibility:hidden;transition:opacity .22s,visibility .22s}.bug-overlay.open{opacity:1;visibility:visible}.bug-modal{width:min(570px,100%);max-height:92vh;overflow:auto;border:1px solid #ffffff42;border-radius:23px;background:var(--white);color:var(--ink);box-shadow:0 32px 100px #0006;transform:translateY(18px) scale(.97);opacity:.7;transition:transform .3s cubic-bezier(.16,1,.3,1),opacity .22s}.bug-overlay.open .bug-modal{transform:translateY(0) scale(1);opacity:1}.bug-head{display:flex;justify-content:space-between;gap:15px;padding:22px 24px;background:linear-gradient(120deg,#292452,#5146d8 58%,#128c91);color:#fff}.bug-head h2{margin:7px 0;font-size:25px;letter-spacing:-.04em}.bug-head p{margin:0;max-width:410px;color:#e5e7ff;font-size:11px;line-height:1.65}.bug-form{padding:21px 24px 24px;display:grid;gap:8px}.bug-form label{font-size:11px;font-weight:850;margin-top:5px}.bug-form input,.bug-form select,.bug-form textarea{width:100%;border:1px solid var(--line);border-radius:11px;background:var(--surface);color:var(--ink);padding:11px 12px;font:inherit;font-size:12px;outline:none}.bug-form input:focus,.bug-form select:focus,.bug-form textarea:focus{border-color:#7c72eb;box-shadow:0 0 0 3px #5146d81b}.bug-privacy{font-size:10px;line-height:1.6;color:var(--muted);margin:5px 0}.bug-actions{display:flex;justify-content:flex-end;gap:9px;flex-wrap:wrap;margin-top:7px}.bug-feedback{font-size:11px;line-height:1.5;color:var(--muted);margin:0}.dark-mode .bug-form input,.dark-mode .bug-form select,.dark-mode .bug-form textarea{background:#171925;color:var(--ink)}
+@media(max-width:600px){.bug-overlay{padding:8px}.bug-modal{max-height:96vh;border-radius:18px}.bug-head{padding:18px}.bug-form{padding:16px}.bug-actions button{flex:1}.footer-credit{flex-basis:100%}}
+@media(prefers-reduced-motion:reduce){.bug-overlay,.bug-modal{transition:none!important}}
+
+</style>
+</head>
+<body>
+<aside class="sidebar" aria-label="Navigazione desktop">
+  <div class="sidebrand"><div class="logo">PR</div><div><strong>Pepix</strong><span>Rapportini</span></div></div>
+  <div class="sidesection">SPAZIO DI LAVORO</div>
+  <button class="sidenav active" data-view="weekView"><span>⌂</span> Dashboard</button>
+  <button class="sidenav" data-view="weekPlanView"><span>▦</span> Pianifica settimana</button>
+  <button class="sidenav" data-view="agendaView"><span>▣</span> Agenda e calendario</button>
+  <button class="sidenav" data-view="guidedView"><span>☷</span> Inserimento guidato</button>
+  <button class="sidenav" data-view="voiceView"><span>🎙</span> Dettatura vocale</button>
+  <button class="sidenav" data-view="helpView"><span>ⓘ</span> Aiuto e FAQ</button>
+  <button class="sidenav" data-view="archiveView"><span>▤</span> Archivio</button>
+  <button class="sidenav" data-view="exportView"><span>↗</span> Backup ed esportazioni</button>
+  <div class="sidebottom">
+    <div class="localpill"><span class="localdot"></span><div><strong>Modalità locale</strong><small>Nessun account o cloud</small></div></div>
+    <button class="sidenav" id="sideBackup"><span>💾</span> Crea backup</button>
+  </div>
+</aside>
+<div class="navbackdrop" id="navBackdrop"></div>
+<div class="app">
+<header class="topbar">
+  <div class="toprow">
+    <div class="brand brand-centered">
+      <div class="logo pool-logo" aria-label="Logo Cioffo Rapportini">
+        <svg viewBox="0 0 64 64" role="img" aria-hidden="true"><defs><linearGradient id="waterG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ce1df"/><stop offset="1" stop-color="#5146d8"/></linearGradient></defs><path d="M9 29h46v20a6 6 0 0 1-6 6H15a6 6 0 0 1-6-6z" fill="url(#waterG)" opacity=".95"/><path d="M9 35c6-5 11 5 17 0s11 5 17 0 9 3 12 1" fill="none" stroke="#e8ffff" stroke-width="2.8" stroke-linecap="round"/><path d="M24 8h16M28 8v9l-9 12a5 5 0 0 0 4 8h18a5 5 0 0 0 4-8l-9-12V8" fill="#fff" fill-opacity=".16" stroke="#a8f8ef" stroke-width="2.8" stroke-linejoin="round"/><circle cx="28" cy="27" r="2.2" fill="#fff"/><circle cx="37" cy="23" r="1.7" fill="#fff"/><circle cx="41" cy="30" r="1.3" fill="#fff"/></svg>
+      </div><div class="brandcopy"><h1>CIOFFO <span>RAPPORTINI</span></h1><p>Gestione professionale · Piscine &amp; Biochimica</p></div>
+    </div>
+    <div class="topactions"><button class="version-btn" id="versionBtn" type="button" aria-haspopup="dialog" aria-controls="versionOverlay" title="Cronologia versioni e aggiornamenti"><span class="version-dot"></span> Versione <span class="version-btn-version">v1.12</span></button><span class="savebadge" id="saveStatus" role="status"><i></i> Salvato in locale</span><button class="iconbtn themebtn" id="themeBtn" aria-label="Attiva modalità scura" title="Modalità scura">☾</button><button class="iconbtn undobtn" id="undoBtn" aria-label="Annulla ultima modifica" title="Annulla ultima modifica" disabled>↶</button><button class="iconbtn" id="backupBtn" aria-label="Esporta backup JSON" title="Backup dati">↗</button><button class="profile-avatar" id="profileBtn" title="Profilo e impostazioni" aria-label="Apri impostazioni profilo"><span id="avatarInitials">CR</span></button></div>
+  </div>
+  <div class="hero-content">
+    <div class="eyebrow">IL TUO SPAZIO DI LAVORO</div>
+    <h2 class="heroTitle">Ogni intervento,<br><span>tracciato con precisione.</span></h2>
+    <p class="heroSub">Organizza le attività, registra il lavoro svolto e crea rapportini professionali per il settore piscine e trattamento acque. I dati restano su questo dispositivo.</p>
+    <div class="hero-tags"><span>✦ Pianifica</span><span>◈ Registra</span><span>↗ Esporta</span></div>
+  </div>
+  <div class="hero-art" aria-hidden="true"><div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div><div class="hero-flask"><svg viewBox="0 0 120 140"><path d="M43 12h34M49 12v38L20 105a15 15 0 0 0 13 23h54a15 15 0 0 0 13-23L71 50V12" fill="rgba(255,255,255,.08)" stroke="#b7fff5" stroke-width="4" stroke-linejoin="round"/><path d="M31 98q14-10 28 0t30 0l11 15a8 8 0 0 1-7 12H34a8 8 0 0 1-7-12z" fill="#39cfc9" opacity=".85"/><circle cx="49" cy="90" r="4" fill="#fff"/><circle cx="66" cy="78" r="3" fill="#9ffcf3"/><circle cx="77" cy="94" r="2.5" fill="#fff"/></svg></div><div class="hero-water"></div><div class="hero-orbit-dot"></div></div>
+  <div class="heroStats"><div class="stat"><strong id="statPlanned">0</strong><span>attività programmate</span></div><div class="stat"><strong id="statDone">0</strong><span>attività completate</span></div><div class="stat"><strong id="statDays">0/7</strong><span>giorni con dati</span></div></div>
+</header>
+<main>
+<section id="weekView" class="view active">
+  <div class="sectionhead"><div><h2>La tua settimana</h2><p>Seleziona un giorno per compilare il rapportino.</p></div><button class="smallbtn" id="todayBtn">Oggi ↗</button></div>
+  <div class="weeknav"><button id="prevWeek" aria-label="Settimana precedente">‹</button><button class="weeklabel weeklabel-button" id="weekLabel" type="button" aria-label="Apri calendario e seleziona una data">Settimana corrente<small>Seleziona il giorno · Apri calendario</small></button><button id="nextWeek" aria-label="Settimana successiva">›</button></div>
+  <div class="daystrip" id="dayStrip"></div>
+  <div class="sectionhead"><div><h2 id="selectedDayTitle">Lunedì</h2><p id="selectedDaySub">Programma e consuntivo</p></div><button class="smallbtn" id="copyDayBtn">Copia giorno</button></div>
+  <article class="card templatecard">
+    <div class="cardhead"><div class="cardtitle"><div class="cardicon" style="background:#f0e9ff">✦</div><div><h3>Attività frequenti</h3><p>Riutilizza i testi che inserisci spesso.</p></div></div><span class="count" id="templateCount">0 modelli</span></div>
+    <div class="templatecontrols">
+      <select id="templateSelect" aria-label="Scegli un modello"><option value="">Scegli un modello salvato…</option></select>
+      <button class="secondary" id="useTemplatePlanned" type="button">Nel programma</button>
+      <button class="secondary" id="useTemplateDone" type="button">Nel lavoro svolto</button>
+      <button class="tiny danger" id="deleteTemplate" type="button" title="Elimina modello selezionato">Elimina</button>
+    </div>
+    <div class="templatecreate">
+      <input id="templateName" maxlength="60" placeholder="Nome modello (es. Controllo impianto)" aria-label="Nome modello">
+      <input id="templateText" maxlength="500" placeholder="Testo dell'attività da riutilizzare" aria-label="Testo modello">
+      <button class="primary" id="saveTemplate" type="button">Salva modello</button>
+    </div>
+  </article>
+  <div class="layout2">
+    <article class="card planned">
+      <div class="cardhead"><div class="cardtitle"><div class="cardicon">▤</div><div><h3>Programma da fare</h3><p>Modifica una voce toccando il testo</p></div></div><span class="count" id="plannedCount">0 voci</span></div>
+      <div class="tasklist" id="plannedList"></div>
+      <form class="addrow" id="plannedForm"><input id="plannedInput" maxlength="500" placeholder="Aggiungi attività prevista…" aria-label="Nuova attività prevista"><button class="addbtn" aria-label="Aggiungi attività">+</button></form>
+    </article>
+    <article class="card done">
+      <div class="cardhead"><div class="cardtitle"><div class="cardicon">✓</div><div><h3>Lavoro svolto</h3><p>Modifica una voce toccando il testo</p></div></div><span class="count" id="doneCount">0 voci</span></div>
+      <div class="tasklist" id="doneList"></div>
+      <form class="addrow" id="doneForm"><input id="doneInput" maxlength="500" placeholder="Registra attività svolta…" aria-label="Nuova attività svolta"><button class="addbtn" aria-label="Aggiungi lavoro svolto">+</button></form>
+    </article>
+  </div>
+  <article class="card" style="margin-top:13px">
+    <div class="cardhead"><div class="cardtitle"><div class="cardicon" style="background:#f8efd9">✎</div><div><h3>Note della giornata</h3><p>Imprevisti, materiali, osservazioni</p></div></div></div>
+    <div class="field" style="margin:0"><textarea id="dayNotes" placeholder="Aggiungi eventuali note…"></textarea></div>
+  </article>
+  <div class="sectionhead" style="margin-top:23px"><div><h2>Compila come preferisci</h2><p>Tutte le modalità sono disponibili.</p></div></div>
+  <div class="modegrid">
+    <button class="mode" data-goto="weekPlan"><span class="emoji">🗓️</span><strong>Pianifica settimana</strong><span>Prepara tutti i giorni</span></button>
+    <button class="mode" data-goto="guided"><span class="emoji">🧭</span><strong>Guida passo passo</strong><span>Giorno, sezione, voce</span></button>
+    <button class="mode" data-goto="voice"><span class="emoji">🎙️</span><strong>Dettatura libera</strong><span>Parla in modo naturale</span></button>
+  </div>
+</section>
+
+<section id="weekPlanView" class="view">
+  <div class="sectionhead"><div><h2>Pianifica la settimana</h2><p>Puoi preparare tutte le attività in anticipo.</p></div></div>
+  <div class="card">
+    <div class="field"><label>Giorno da programmare</label><select id="planDaySelect"></select></div>
+    <div class="field"><label>Attività previste (una per riga)</label><textarea id="planBulk" placeholder="Controllo impianto&#10;Verifica dosaggio&#10;Manutenzione programmata"></textarea></div>
+    <div class="toolbar"><button class="primary" id="savePlanBtn">Salva programma del giorno</button><button class="secondary" id="appendPlanBtn">Aggiungi alle voci esistenti</button></div>
+    <p class="hint" style="margin-top:12px">Le voci già presenti non vengono cancellate, a meno che tu scelga esplicitamente di sostituirle.</p>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0">Compilazione rapida dell'intera settimana</h3>
+    <p class="hint">Inserisci un giorno alla volta dal menu, oppure usa la dettatura libera per distribuire più attività tra giorni e sezioni.</p>
+    <button class="primary" style="width:100%" id="goVoiceFromPlan">Apri dettatura libera 🎙️</button>
+  </div>
+</section>
+
+<section id="guidedView" class="view">
+  <div class="sectionhead"><div><h2>Compilazione guidata</h2><p>Un passaggio alla volta, senza confusione.</p></div></div>
+  <div class="card">
+    <div class="field"><label>1 · Scegli il giorno</label><select id="guidedDay"></select></div>
+    <div class="field"><label>2 · Cosa vuoi registrare?</label><div class="pillrow"><button class="pill active" data-guided-type="planned">Programma da fare</button><button class="pill" data-guided-type="done">Lavoro svolto</button></div></div>
+    <div class="field"><label>3 · Scrivi o detta le attività</label><textarea id="guidedText" placeholder="Una voce per riga…"></textarea></div>
+    <div class="toolbar"><button class="secondary" id="guidedMic">🎙️ Detta</button><button class="primary" id="guidedSave">Aggiungi al giorno</button></div>
+  </div>
+  <div class="notice">Il sistema aggiunge le voci alla sezione scelta. Non contrassegna automaticamente un'attività come svolta solo perché era programmata.</div>
+</section>
+
+<section id="voiceView" class="view">
+  <div class="sectionhead"><div><h2>Dettatura vocale</h2><p>Parla normalmente: controlla sempre il risultato prima di salvarlo.</p></div></div>
+  <div class="card center">
+    <div class="eyebrow" style="color:#6c8184;margin-top:0">INSERIMENTO VOCALE</div>
+    <h2>Dimmi cosa hai fatto</h2>
+    <p>Puoi nominare giorni e sezioni. Esempio: “Lunedì, da fare controllo impianto; svolto verifica dosaggio”.</p>
+    <button class="micbig" id="micBtn" aria-label="Avvia dettatura">🎙</button>
+    <div id="micStatus" class="hint">Premi il microfono per iniziare la dettatura.</div>
+    <div class="field" style="text-align:left;margin-top:12px"><label>Trascrizione da verificare</label><textarea id="voiceText" placeholder="La trascrizione apparirà qui. Puoi anche scrivere direttamente…"></textarea></div>
+    <div class="field" style="text-align:left;margin-top:14px">
+      <label style="display:flex;align-items:center;gap:9px;color:var(--ink);font-size:13px">
+        <input type="checkbox" id="aiCorrectionEnabled" style="width:18px;height:18px;accent-color:var(--teal)">
+        Correzione IA facoltativa
+      </label>
+      <p class="hint" style="margin:5px 0 0">Se attivata, in una versione successiva potrà proporre una riscrittura professionale. L'originale resterà sempre recuperabile e modificabile.</p>
+    </div>
+    <div class="toolbar"><button class="secondary" id="clearVoice">Svuota</button><button class="secondary" id="correctVoice">Correggi testo</button><button class="primary" id="parseVoice">Analizza e mostra anteprima</button></div>
+  </div>
+  <div class="card" id="previewCard" style="display:none">
+    <div class="cardhead"><div class="cardtitle"><div class="cardicon" style="background:#e7effb">⌕</div><div><h3>Anteprima delle voci</h3><p>Controlla giorno e sezione prima di salvare</p></div></div></div>
+    <div id="previewList" class="tasklist"></div>
+    <div class="toolbar" style="margin-top:13px"><button class="secondary" id="cancelPreview">Annulla</button><button class="primary" id="confirmPreview">Conferma e salva</button></div>
+  </div>
+  <div class="notice">La dettatura usa il riconoscimento vocale disponibile nel browser o nel dispositivo: su alcuni telefoni potrebbe richiedere Internet o non essere supportata. Puoi sempre scrivere il testo manualmente.</div>
+</section>
+
+<section id="archiveView" class="view">
+  <div class="sectionhead"><div><h2>Archivio rapportini</h2><p>Ritrova e modifica le settimane precedenti.</p></div></div>
+  <div class="card">
+    <div class="field"><label>Cerca attività o note</label><input id="searchArchive" placeholder="Es. manutenzione, controllo…"></div>
+    <div id="archiveResults"></div>
+  </div>
+</section>
+
+<section id="agendaView" class="view">
+  <div class="agenda-hero">
+    <div><div class="export-eyebrow">PIANIFICAZIONE PERSONALE</div><h2>La tua agenda,<br><span>giorno dopo giorno.</span></h2><p>Seleziona una data, annota promemoria e consulta rapidamente le attività programmate e svolte.</p></div>
+    <div class="agenda-hero-art" aria-hidden="true"><div class="agenda-calendar-icon"><span>CAL</span><strong>✓</strong></div><i></i><b></b></div>
+  </div>
+  <div class="agenda-toolbar card"><button class="secondary" id="agendaPrev">‹</button><div><strong id="agendaMonthLabel">Ottobre 2026</strong><small>Seleziona un giorno per aprire i dettagli</small></div><button class="secondary" id="agendaNext">›</button><button class="primary" id="agendaToday">Oggi</button></div>
+  <div class="agenda-layout">
+    <div class="agenda-calendar card"><div class="calendar-weekdays"><span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span></div><div class="calendar-grid" id="agendaCalendarGrid"></div><div class="agenda-legend"><span><i class="legend-plan"></i>Programma</span><span><i class="legend-done"></i>Svolto</span><span><i class="legend-note"></i>Note</span></div></div>
+    <aside class="agenda-day card"><div class="agenda-day-kicker">GIORNO SELEZIONATO</div><h3 id="agendaSelectedDate">Seleziona una data</h3><div class="agenda-day-counts"><span id="agendaPlanCount">0 programmate</span><span id="agendaDoneCount">0 svolte</span></div><label for="agendaNotes">Note e promemoria</label><textarea id="agendaNotes" rows="6" placeholder="Scadenze, materiali da preparare, indirizzo del cliente, promemoria…"></textarea><div class="agenda-save-status" id="agendaSaveStatus">Le note vengono salvate automaticamente.</div><button class="primary" id="agendaOpenDay">Apri il rapportino del giorno ↗</button></aside>
+  </div>
+</section>
+<section id="helpView" class="view">
+  <div class="help-hero">
+    <div class="help-hero-copy"><div class="export-eyebrow">CENTRO ASSISTENZA</div><h2>Ti aiutiamo a fare ordine.<br><span>Una risposta alla volta.</span></h2><p>Qui trovi le istruzioni per compilare, salvare, correggere ed esportare i tuoi rapportini. L'app lavora in locale: non serve creare un account.</p></div>
+    <div class="help-art" aria-hidden="true"><div class="help-orbit"></div><div class="help-bubble">?</div><div class="help-spark">✦</div></div>
+  </div>
+  <div class="help-search card"><label for="helpSearch">Cerca una domanda</label><div class="help-searchbar"><span>⌕</span><input id="helpSearch" type="search" placeholder="Es. Come creo un PDF?"></div><p>Scrivi una parola come “salvataggio”, “voce”, “backup” o “PDF”.</p></div>
+  <div class="help-section-head"><div><h3>Domande frequenti</h3><p>Risposte rapide alle operazioni più comuni.</p></div><span class="local-chip">Guida integrata</span></div>
+  <div class="faq-list" id="faqList">
+    <details class="faq-item" open><summary><span class="faq-num">01</span><span><strong>Come creo un rapportino?</strong><small>Il flusso base in tre passaggi</small></span><b class="faq-chevron">＋</b></summary><div class="faq-answer"><ol><li>Scegli la settimana con le frecce e clicca sul giorno.</li><li>Inserisci le attività previste nella colonna <strong>Programma</strong> e quelle effettivamente eseguite in <strong>Lavoro svolto</strong>.</li><li>Aggiungi eventuali note, materiali usati o imprevisti. Le modifiche vengono salvate automaticamente nel browser.</li></ol></div></details>
+    <details class="faq-item"><summary><span class="faq-num">02</span><span><strong>Come pianifico tutta la settimana?</strong><small>Inserisci le attività prima di eseguirle</small></span><b class="faq-chevron">＋</b></summary><div class="faq-answer">Apri <strong>Pianifica settimana</strong>, seleziona il giorno e inserisci le attività previste. Ripeti per gli altri giorni. Durante la giornata registra separatamente ciò che hai realmente fatto: programma e consuntivo restano distinti.</div></details>
+    <details class="faq-item"><summary><span class="faq-num">03</span><span><strong>Come modifico o elimino un'attività?</strong><small>Correggi un testo già salvato</small></span><b class="faq-chevron">＋</b></summary><div class="faq-answer">Tocca o clicca sul testo dell'attività per modificarlo, poi conferma con Invio se richiesto o spostati fuori dal campo. Usa il comando elimina accanto alla voce solo quando vuoi rimuoverla. Puoi usare <strong>Annulla</strong> per recuperare l'ultima modifica quando disponibile.</div></details>
+    <details class="faq-item"><summary><span class="faq-num">04</span><span><strong>Come creo un PDF professionale?</strong><small>Esporta una settimana o un periodo</small></span><b class="faq-chevron">＋</b></summary><div class="faq-answer"><ol><li>Apri <strong>Backup ed esportazioni</strong>.</li><li>Scegli il periodo e il titolo del documento.</li><li>Premi <strong>Crea PDF</strong>; si apre la finestra di stampa del browser.</li><li>Seleziona “Salva come PDF”, controlla l'anteprima e salva il file.</li></ol>Se il documento è lungo, verifica tutte le pagine prima di inviarlo.</div></details>
+    <details class="faq-item"><summary><span class="faq-num">05</span><span><strong>Quali formati posso esportare?</strong><small>PDF, tabella CSV e backup JSON</small></span><b class="faq-chevron">＋</b></summary><div class="faq-answer"><strong>PDF</strong> per un rapporto leggibile e stampabile; <strong>CSV</strong> per aprire i dati in Excel o altri fogli di calcolo; <strong>JSON</strong> per conservare una copia di sicurezza ripristinabile. Il CSV non è un file Excel nativo .xlsx.</div></details>
+    <details class="faq-item"><summary><span class="faq-num">06</span><span><strong>Come faccio un backup o ripristino?</strong><small>Proteggi i tuoi dati</small></span><b class="faq-chevron">＋</b></summary><div class="faq-answer">Apri la sezione di esportazione e crea un backup JSON. Conserva il file in un posto sicuro, ad esempio una cartella del PC o un'unità esterna. Per il ripristino usa l'apposito comando e seleziona il backup. Prima di importare, crea un backup dello stato attuale: il ripristino può sostituire i dati presenti.</div></details>
+    <details class="faq-item"><summary><span class="faq-num">07</span><span><strong>I miei dati sono online?</strong><small>Privacy e salvataggio locale</small></span><b class="faq-chevron">＋</b></summary><div class="faq-answer">No: in questa versione i dati vengono salvati nel browser sul dispositivo. Non c'è sincronizzazione cloud. Se cancelli i dati del sito/browser, cambi profilo browser o dispositivo, potresti perderli: fai backup regolari. Il profilo e i contatti aziendali possono comparire nel PDF.</div></details>
+    <details class="faq-item"><summary><span class="faq-num">08</span><span><strong>La dettatura vocale funziona offline?</strong><small>Dipende dal browser e dal dispositivo</small></span><b class="faq-chevron">＋</b></summary><div class="faq-answer">La dettatura usa le funzionalità vocali disponibili nel browser. Il riconoscimento può richiedere connessione e non è garantito offline. Se non parte, controlla i permessi del microfono, la connessione e le impostazioni del browser; in alternativa inserisci il testo manualmente. Il motore vocale offline nativo non è ancora incluso in questa versione.</div></details>
+    <details class="faq-item"><summary><span class="faq-num">09</span><span><strong>Come uso i modelli di attività frequenti?</strong><small>Riutilizza descrizioni ricorrenti</small><b class="faq-chevron">＋</b></summary><div class="faq-answer">Nella scheda <strong>Attività frequenti</strong>, scegli un modello salvato e premi “Nel programma” oppure “Nel lavoro svolto”. Per crearne uno, inserisci nome e testo e premi “Salva modello”. Puoi riutilizzarlo in più giorni.</div></details>
+    <details class="faq-item"><summary><span class="faq-num">10</span><span><strong>Che cosa succede se chiudo la pagina?</strong><small>Autosave e limiti del dispositivo</small><b class="faq-chevron">＋</b></summary><div class="faq-answer">Le modifiche salvate restano nel browser sullo stesso dispositivo. Prima di chiudere, controlla l'indicatore di salvataggio e fai backup regolari. La modalità privata/incognito può cancellare i dati alla chiusura e non è consigliata per l'uso quotidiano.</div></details>
+    <details class="faq-item"><summary><span class="faq-num">11</span><span><strong>Come aggiorno nome, email e telefono?</strong><small>Impostazioni del profilo</small><b class="faq-chevron">＋</b></summary><div class="faq-answer">Clicca sull'avatar in alto a destra, aggiorna i dati e salva. Sono dati locali e vengono inseriti nell'intestazione del PDF, quindi controllali prima di condividere il documento.</div></details>
+    <details class="faq-item"><summary><span class="faq-num">12</span><span><strong>Non trovo una risposta: cosa posso fare?</strong><small>Controlli rapidi</small></span><b class="faq-chevron">＋</b></summary><div class="faq-answer">Prova a ricaricare la pagina, controlla che il browser sia aggiornato e verifica che non sia in modalità privata. Prima di cancellare cache o dati del sito, esporta un backup JSON. Se un comando non funziona, annota i passaggi per riprodurre il problema e quale browser stai usando.</div></details>
+  </div>
+  <div class="help-contact card"><div class="help-contact-icon">✦</div><div><h3>Consiglio importante</h3><p>Il backup è la tua rete di sicurezza. Esportalo regolarmente e conservalo fuori dal browser, soprattutto prima di aggiornare o cambiare dispositivo.</p></div><button class="primary" data-goto="exportView">Vai alle esportazioni ↗</button></div>
+</section>
+<section id="exportView" class="view">
+  <div class="exporthero">
+    <div class="exporthero-icon">↗</div>
+    <div><div class="export-eyebrow">DOCUMENTI E ARCHIVIO</div><h2>Esporta i tuoi rapportini</h2><p>Prepara documenti leggibili, archivia una copia o ripristina i tuoi dati. Tutto viene elaborato su questo dispositivo.</p></div>
+  </div>
+  <div class="export-config card">
+    <div class="export-config-title"><div><h3>Personalizza l'esportazione</h3><p>Scegli il periodo e il titolo da inserire nel documento.</p></div><span class="local-chip">● Solo locale</span></div>
+    <div class="export-config-grid">
+      <div class="field"><label for="exportPeriod">Periodo da esportare</label><select id="exportPeriod">
+        <option value="week">1 settimana · settimana selezionata</option>
+        <option value="2weeks">2 settimane</option>
+        <option value="3weeks">3 settimane</option>
+        <option value="month">Mese completo</option>
+        <option value="custom">Intervallo personalizzato</option>
+        <option value="all">Tutti i rapportini salvati</option>
+      </select></div>
+      <div class="field"><label for="companyName">Titolo del documento (facoltativo)</label><input id="companyName" placeholder="Es. Rendicontazione attività"></div>
+      <div class="field"><label for="exportStartDate">Data iniziale</label><input type="date" id="exportStartDate"></div>
+      <div class="field"><label for="exportEndDate">Data finale</label><input type="date" id="exportEndDate"></div>
+    </div>
+    <p class="export-range-hint" id="exportRangeHint" role="status">Il periodo suggerito viene compilato automaticamente; puoi modificare liberamente le date.</p>
+  </div>
+  <div class="export-section-label"><div><h3>Esporta un documento</h3><p>Scegli il formato più adatto al tuo lavoro.</p></div></div>
+  <div class="export-cards">
+    <article class="export-card pdf-card"><div class="export-card-top"><div class="export-format-icon">PDF</div><span class="format-tag">Per stampare o inviare</span></div><h3>Rapportino professionale</h3><p>Layout ordinato con intestazione, riepilogo, attività previste e svolte, note e spazio per le firme.</p><div class="export-card-foot"><span>Documento impaginato</span><button class="primary" id="exportPdf">Crea PDF <span aria-hidden="true">↗</span></button></div></article>
+    <article class="export-card excel-card"><div class="export-card-top"><div class="export-format-icon">CSV</div><span class="format-tag">Apribile con Excel</span></div><h3>Tabella delle attività</h3><p>Esporta le attività in formato CSV per aprirle in Excel o in altri fogli di calcolo. Non è ancora un file .xlsx nativo.</p><div class="export-card-foot"><span>Tabella modificabile</span><button class="secondary" id="exportCsv">Esporta CSV <span aria-hidden="true">↓</span></button></div></article>
+    <article class="export-card backup-card"><div class="export-card-top"><div class="export-format-icon">JSON</div><span class="format-tag">Copia di sicurezza</span></div><h3>Backup completo</h3><p>Salva rapportini, note e modelli per poterli ripristinare o trasferire su un altro dispositivo.</p><div class="export-card-foot"><span>Da conservare al sicuro</span><button class="secondary" id="exportJson">Crea backup <span aria-hidden="true">↓</span></button></div></article>
+  </div>
+  <div class="export-safety"><div class="safety-icon">🔒</div><div><strong>I tuoi dati restano sul dispositivo</strong><p>Nessun account e nessun cloud. Per evitare di perdere i rapportini, crea periodicamente un backup JSON e conservalo in un luogo sicuro.</p></div></div>
+  <div class="restore-card card"><div class="restore-icon">↥</div><div class="restore-copy"><h3>Ripristina un backup</h3><p>Seleziona un file JSON creato da Cioffo Rapportini. Prima del ripristino, ti consigliamo di esportare un backup dello stato attuale.</p><input type="file" id="importJson" accept=".json,application/json"></div></div>
+</section>
+<div class="calendar-overlay" id="calendarOverlay" aria-hidden="true">
+  <section class="calendar-modal" role="dialog" aria-modal="true" aria-labelledby="calendarModalTitle">
+    <header class="calendar-modal-head"><div><div class="export-eyebrow">CALENDARIO RAPPORTINI</div><h2 id="calendarModalTitle">Scegli i tuoi giorni</h2><p>Clicca una data per aggiornare la settimana e consultare le note.</p></div><button class="calendar-close" id="calendarClose" aria-label="Chiudi calendario">×</button></header>
+    <div class="calendar-modal-body"><div class="calendar-modal-main"><div class="agenda-toolbar modal-toolbar"><button class="secondary" id="modalPrev">‹</button><strong id="modalMonthLabel">Mese</strong><button class="secondary" id="modalNext">›</button><button class="primary" id="modalToday">Oggi</button></div><div class="agenda-calendar modal-calendar"><div class="calendar-weekdays"><span>Lun</span><span>Mar</span><span>Mer</span><span>Gio</span><span>Ven</span><span>Sab</span><span>Dom</span></div><div class="calendar-grid" id="modalCalendarGrid"></div><div class="agenda-legend"><span><i class="legend-plan"></i>Programma</span><span><i class="legend-done"></i>Svolto</span><span><i class="legend-note"></i>Note</span></div></div></div><aside class="agenda-day modal-day"><div class="agenda-day-kicker">DETTAGLIO DEL GIORNO</div><h3 id="modalSelectedDate"></h3><div class="agenda-day-counts"><span id="modalPlanCount"></span><span id="modalDoneCount"></span></div><label for="modalAgendaNotes">Note del giorno</label><textarea id="modalAgendaNotes" rows="7" placeholder="Scrivi un promemoria per questa data…"></textarea><p class="agenda-save-status">Le note vengono salvate automaticamente.</p><button class="primary" id="modalSelectDay">Seleziona questo giorno</button></aside></div>
+  </section>
+</div>
+<div class="version-overlay" id="versionOverlay" aria-hidden="true">
+  <section class="version-modal" role="dialog" aria-modal="true" aria-labelledby="versionModalTitle">
+    <header class="version-head"><div class="version-headrow"><div><div class="version-kicker">CIOFFO RAPPORTINI · CHANGELOG</div><h2 id="versionModalTitle">Ogni versione, un passo avanti.</h2><p>Qui trovi le novità introdotte nel tempo. La cronologia verrà aggiornata insieme a ogni nuova versione dell'app.</p><div class="version-current"><span>●</span> Versione installata <b data-current-version>1.12.0</b></div></div><button class="version-close" id="versionClose" type="button" aria-label="Chiudi cronologia versioni">×</button></div></header>
+    <div class="version-body"><div class="version-release-title"><h3>Diario delle novità</h3><span> dalla più recente</span></div>
+      <div class="version-timeline" id="versionTimeline">
+        <article class="version-release" style="--delay:0ms"><div class="version-marker">✦</div><div class="version-release-card"><div class="version-release-top"><strong>v1.12.0 · Firma PepixGames e segnalazione bug</strong><span class="version-tag">ATTUALE</span></div><p>Attribuzione del progetto nei commenti sorgente, versione del footer sincronizzata automaticamente, nuovo modulo per segnalare bug tramite email e preparazione del pacchetto installabile senza cartelle sorgenti esposte all'utente.</p></div></article>
+        <article class="version-release" style="--delay:0ms"><div class="version-marker">✦</div><div class="version-release-card"><div class="version-release-top"><strong>v1.11.0 · Build e aggiornamenti</strong></div><p>Controllo aggiornamenti collegato alle release pubbliche GitHub; predisposizione per installer Windows tramite Tauri e APK Android tramite Capacitor; workflow automatico di build. La distribuzione Android stabile richiede ancora la chiave di firma definitiva.</p></div></article>
+        <article class="version-release" style="--delay:55ms"><div class="version-marker">1.10</div><div class="version-release-card"><div class="version-release-top"><strong>v1.10.0 · Cronologia versioni</strong><time>19 ottobre 2026</time></div><p>Nuovo modal animato con il diario delle versioni e pulsante di ricerca aggiornamenti, pronto per essere collegato a un canale di distribuzione ufficiale.</p></div></article>
+        <article class="version-release" style="--delay:110ms"><div class="version-marker">1.9</div><div class="version-release-card"><div class="version-release-top"><strong>v1.9.0 · Interfaccia rinnovata</strong><time>19 ottobre 2026</time></div><p>Restyling visivo di intestazione, schede, pulsanti, campi e stati di interazione; miglioramenti responsive, transizioni e supporto alla preferenza per movimento ridotto. Menu laterale preservato.</p></div></article>
+        <article class="version-release" style="--delay:165ms"><div class="version-marker">1.8</div><div class="version-release-card"><div class="version-release-top"><strong>v1.8.0 · Esportazione PDF</strong></div><p>Generazione PDF diretta e controlli separati per stampa, salvataggio e chiusura dell'anteprima.</p></div></article>
+        <article class="version-release" style="--delay:220ms"><div class="version-marker">1.7</div><div class="version-release-card"><div class="version-release-top"><strong>v1.7.x · Periodi di esportazione</strong></div><p>Selezione del periodo da esportare e miglioramenti alla finestra di anteprima del rapporto.</p></div></article>
+        <article class="version-release" style="--delay:275ms"><div class="version-marker">1.6</div><div class="version-release-card"><div class="version-release-top"><strong>v1.6 · Agenda e calendario</strong></div><p>Calendario mensile, selezione delle date e note giornaliere per tenere organizzate le attività.</p></div></article>
+        <article class="version-release" style="--delay:330ms"><div class="version-marker">1.5</div><div class="version-release-card"><div class="version-release-top"><strong>v1.5 · Centro assistenza</strong></div><p>Sezione Aiuto e FAQ per le operazioni principali, con ricerca delle domande e indicazioni per backup e dati locali.</p></div></article>
+      </div>
+      <div class="version-actions"><button class="primary" id="checkUpdatesBtn" type="button"><span aria-hidden="true">⟳</span> Cerca aggiornamenti</button><button class="secondary" id="reportBugBtn" type="button">⚑ Segnala un bug</button><div class="version-status" id="updateStatus" role="status" aria-live="polite">La ricerca online sarà attivata quando verrà configurato il canale ufficiale degli aggiornamenti.</div></div>
+    </div>
+  </section>
+</div>
+<div class="bug-overlay" id="bugOverlay" aria-hidden="true">
+  <section class="bug-modal" role="dialog" aria-modal="true" aria-labelledby="bugModalTitle">
+    <header class="bug-head"><div><div class="version-kicker">PEPIXGAMES · SUPPORTO</div><h2 id="bugModalTitle">Segnala un bug</h2><p>Descrivi cosa è successo. Verrà preparata un'email con la versione dell'app e i dettagli che inserisci.</p></div><button class="version-close" id="bugClose" type="button" aria-label="Chiudi segnalazione">×</button></header>
+    <form id="bugForm" class="bug-form"><label for="bugType">Tipo di problema</label><select id="bugType" required><option value="Errore o crash">Errore o blocco dell'app</option><option value="Problema grafico">Problema grafico o layout</option><option value="Salvataggio dati">Salvataggio o perdita dati</option><option value="PDF o esportazione">PDF o esportazione</option><option value="Altro">Altro</option></select><label for="bugDescription">Descrizione del problema</label><textarea id="bugDescription" required minlength="10" maxlength="4000" rows="5" placeholder="Cosa stavi facendo? Cosa ti aspettavi e cosa è successo?"></textarea><label for="bugSteps">Passaggi per riprodurlo (facoltativo)</label><textarea id="bugSteps" maxlength="2000" rows="3" placeholder="1. Ho aperto… 2. Ho premuto…"></textarea><label for="bugReplyEmail">La tua email (facoltativa)</label><input id="bugReplyEmail" type="email" maxlength="160" placeholder="Per ricevere una risposta"><p class="bug-privacy">La segnalazione viene preparata nella tua app di posta. Non vengono allegati automaticamente rapportini, note o backup personali.</p><div class="bug-actions"><button class="secondary" id="bugCancel" type="button">Annulla</button><button class="primary" type="submit">Prepara email di segnalazione ↗</button></div><p class="bug-feedback" id="bugFeedback" role="status" aria-live="polite"></p></form>
+  </section>
+</div>
+<div class="profile-overlay" id="profileOverlay" aria-hidden="true">
+  <section class="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+    <div class="profile-modal-head"><div class="profile-modal-logo"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M9 29h46v20a6 6 0 0 1-6 6H15a6 6 0 0 1-6-6z" fill="#39cfc9"/><path d="M9 35c6-5 11 5 17 0s11 5 17 0 9 3 12 1" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/><path d="M24 8h16M28 8v9l-9 12a5 5 0 0 0 4 8h18a5 5 0 0 0 4-8l-9-12V8" fill="none" stroke="#5146d8" stroke-width="2.8" stroke-linejoin="round"/></svg></div><button class="iconbtn profile-close" id="profileClose" aria-label="Chiudi impostazioni">×</button></div>
+    <div class="profile-kicker">IL TUO PROFILO LOCALE</div><h2 id="profileModalTitle">Personalizza il tuo spazio</h2><p class="profile-intro" id="profileIntro">Inserisci i tuoi dati per personalizzare l'app e riportarli nell'intestazione dei PDF. Restano salvati solo su questo dispositivo.</p>
+    <form id="profileForm">
+      <label for="profileFullName">Nome e cognome</label><input id="profileFullName" name="fullName" autocomplete="name" maxlength="120" required placeholder="Es. Mario Rossi">
+      <label for="profileEmail">Email aziendale</label><input id="profileEmail" name="email" type="email" autocomplete="email" maxlength="160" required placeholder="nome@azienda.it">
+      <label for="profilePhone">Telefono aziendale</label><input id="profilePhone" name="phone" type="tel" autocomplete="tel" maxlength="40" required placeholder="Es. +39 333 1234567">
+      <div class="profile-privacy"><span>🔒</span><span>Nessun account, server o cloud: i dati restano in locale e puoi modificarli quando vuoi.</span></div>
+      <div class="profile-actions"><button class="secondary" type="button" id="profileCancel">Annulla</button><button class="primary" type="submit" id="profileSave">Salva profilo</button></div>
+    </form>
+  </section>
+</div>
+<footer id="appFooter"><span>CIOFFO RAPPORTINI · v1.12.0 · I tuoi dati restano su questo dispositivo</span><button class="footer-bug-link" id="footerBugBtn" type="button">⚑ Segnala un bug</button></footer>
+</main>
+</div>
+<nav class="bottomnav" aria-label="Navigazione principale">
+<button class="navitem active" data-view="weekView"><span class="navico">⌂</span>Home</button>
+<button class="navitem" data-view="weekPlanView"><span class="navico">▦</span>Settimana</button><button class="navitem" data-view="agendaView"><span class="navico">▣</span>Agenda</button>
+<button class="navitem" data-view="voiceView"><span class="navico">🎙</span>Voce</button>
+<button class="navitem" data-view="helpView"><span class="navico">ⓘ</span>Aiuto</button><button class="navitem" data-view="archiveView"><span class="navico">▤</span>Archivio</button>
+<button class="navitem" data-view="exportView"><span class="navico">↗</span>Esporta</button>
+</nav>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(() => {
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+
+
+const themeBtn=$('#themeBtn');
+function applyTheme(theme){const dark=theme==='dark';document.body.classList.toggle('dark-mode',dark);if(themeBtn){themeBtn.textContent=dark?'☀':'☾';themeBtn.title=dark?'Attiva modalità chiara':'Attiva modalità scura';themeBtn.setAttribute('aria-label',themeBtn.title)}const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.content=dark?'#11121b':'#5146d8';}
+let savedTheme='light';try{savedTheme=localStorage.getItem('pepixRapportiniTheme')||'light'}catch{}applyTheme(savedTheme);
+themeBtn?.addEventListener('click',()=>{const next=document.body.classList.contains('dark-mode')?'light':'dark';applyTheme(next);try{localStorage.setItem('pepixRapportiniTheme',next)}catch{}toast(next==='dark'?'Modalità scura attivata':'Modalità chiara attivata')});
+
+// © 2026 Giuseppe Cioffo (Pepix) — PepixGames. Cioffo Rapportini.
+// Centro versioni e controllo aggiornamenti tramite GitHub Releases. Il workflow di release sostituisce il repository segnaposto con quello reale.
+const CURRENT_APP_VERSION = '1.12.0';
+const UPDATE_REPOSITORY = '__GITHUB_REPOSITORY__';
+// Inserire l'indirizzo ufficiale per abilitare l'invio email diretto dal dispositivo.
+const BUG_REPORT_EMAIL = '__BUG_REPORT_EMAIL__';
+function syncDisplayedVersion(){document.querySelectorAll('[data-current-version]').forEach(el=>el.textContent=CURRENT_APP_VERSION);document.querySelectorAll('.version-btn-version').forEach(el=>el.textContent='v'+CURRENT_APP_VERSION.replace(/\.0$/,''));const footer=$('#appFooter span');if(footer)footer.textContent='CIOFFO RAPPORTINI · v'+CURRENT_APP_VERSION+' · I tuoi dati restano su questo dispositivo';}
+syncDisplayedVersion();
+const versionOverlay=$('#versionOverlay'), versionBtn=$('#versionBtn'), updateStatus=$('#updateStatus'), checkUpdatesBtn=$('#checkUpdatesBtn');
+function openVersionModal(){versionOverlay.classList.add('open');versionOverlay.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');$('#versionClose').focus()}
+function closeVersionModal(){versionOverlay.classList.remove('open');versionOverlay.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');versionBtn?.focus()}
+versionBtn?.addEventListener('click',openVersionModal);$('#versionClose')?.addEventListener('click',closeVersionModal);
+versionOverlay?.addEventListener('click',e=>{if(e.target===versionOverlay)closeVersionModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&versionOverlay?.classList.contains('open'))closeVersionModal()});
+function compareVersions(a,b){const pa=String(a).replace(/^v/i,'').split(/[.+-]/).slice(0,3).map(n=>parseInt(n,10)||0),pb=String(b).replace(/^v/i,'').split(/[.+-]/).slice(0,3).map(n=>parseInt(n,10)||0);for(let i=0;i<3;i++){if((pa[i]||0)>(pb[i]||0))return 1;if((pa[i]||0)<(pb[i]||0))return -1}return 0}
+function setUpdateStatus(message,state='info',link){updateStatus.replaceChildren(document.createTextNode(message));updateStatus.dataset.state=state;if(link){const a=document.createElement('a');a.href=link;a.target='_blank';a.rel='noopener noreferrer';a.className='update-release-link';a.textContent='Apri pagina aggiornamenti ↗';updateStatus.append(document.createTextNode(' '),a)}}
+checkUpdatesBtn?.addEventListener('click',async()=>{if(!UPDATE_REPOSITORY||UPDATE_REPOSITORY.includes('__')||!UPDATE_REPOSITORY.includes('/')){setUpdateStatus('Canale aggiornamenti non configurato in questa copia sorgente. Quando il progetto sarà pubblicato su GitHub, le versioni installabili potranno controllare le release ufficiali. Nessun dato è stato modificato.','error');return}checkUpdatesBtn.disabled=true;checkUpdatesBtn.style.opacity='.7';checkUpdatesBtn.querySelector('span')?.classList.add('update-spin');setUpdateStatus('Connessione al canale ufficiale e controllo della versione più recente…','busy');try{const response=await fetch('https://api.github.com/repos/'+UPDATE_REPOSITORY+'/releases/latest',{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});if(response.status===404)throw new Error('Il canale non è ancora disponibile oppure non contiene release pubbliche.');if(response.status===403)throw new Error('Il servizio ha limitato temporaneamente le richieste. Riprova più tardi.');if(!response.ok)throw new Error('Il server ha risposto con codice '+response.status+'.');const release=await response.json();const latest=String(release.tag_name||'').replace(/^v/i,'');if(!latest)throw new Error('La release non contiene un numero di versione valido.');if(compareVersions(latest,CURRENT_APP_VERSION)>0){setUpdateStatus('È disponibile la versione '+latest+' (installata: '+CURRENT_APP_VERSION+'). Apri la pagina ufficiale per scaricare l’aggiornamento. I dati locali non vengono toccati dal controllo.','success',release.html_url)}else{setUpdateStatus('Sei aggiornato: versione installata '+CURRENT_APP_VERSION+'. Ultima versione pubblicata: '+latest+'.','success',release.html_url)}}catch(error){setUpdateStatus('Impossibile completare la ricerca: '+(error?.message||'controlla la connessione e riprova')+' I dati locali non sono stati modificati.','error')}finally{checkUpdatesBtn.disabled=false;checkUpdatesBtn.style.opacity='';checkUpdatesBtn.querySelector('span')?.classList.remove('update-spin')}});
+
+
+// Segnalazione bug — © Giuseppe Cioffo (Pepix), PepixGames. Nessun dato dei rapportini viene incluso automaticamente.
+const bugOverlay=$('#bugOverlay'),bugForm=$('#bugForm'),bugFeedback=$('#bugFeedback');
+function openBugModal(){if(versionOverlay?.classList.contains('open'))closeVersionModal();bugOverlay?.classList.add('open');bugOverlay?.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');$('#bugType')?.focus()}
+function closeBugModal(){bugOverlay?.classList.remove('open');bugOverlay?.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')}
+$('#reportBugBtn')?.addEventListener('click',openBugModal);$('#footerBugBtn')?.addEventListener('click',openBugModal);$('#bugClose')?.addEventListener('click',closeBugModal);$('#bugCancel')?.addEventListener('click',closeBugModal);bugOverlay?.addEventListener('click',e=>{if(e.target===bugOverlay)closeBugModal()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&bugOverlay?.classList.contains('open'))closeBugModal()});
+bugForm?.addEventListener('submit',e=>{e.preventDefault();const description=$('#bugDescription').value.trim();if(description.length<10){bugFeedback.textContent='Descrivi il problema con almeno 10 caratteri.';return}if(!BUG_REPORT_EMAIL||BUG_REPORT_EMAIL.includes('__')){bugFeedback.textContent='La segnalazione è pronta, ma manca l’indirizzo email del destinatario. Comunica l’indirizzo da usare per attivare l’invio.';return}const type=$('#bugType').value,steps=$('#bugSteps').value.trim(),reply=$('#bugReplyEmail').value.trim();const subject='[Cioffo Rapportini '+CURRENT_APP_VERSION+'] Segnalazione bug: '+type;const body=['Segnalazione bug Cioffo Rapportini','Versione: '+CURRENT_APP_VERSION,'Sistema: '+(navigator.userAgent||'non disponibile'),'Tipo: '+type,'','Descrizione:',description,'',...(steps?['Passaggi per riprodurre il problema:',steps,'']:[]),...(reply?['Email per risposta: '+reply,'']:[]),'Nota privacy: nessun rapporto, nota o backup è stato allegato automaticamente.'].join('\n');window.location.href='mailto:'+encodeURIComponent(BUG_REPORT_EMAIL)+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);bugFeedback.textContent='Si sta aprendo il programma di posta. Controlla il destinatario e premi Invia per spedire la segnalazione.';});
+
+
+// Desktop sidebar: collapsed by default; opens when the pointer enters and retracts when it leaves.
+// Keyboard focus can also open it; on touch/tablet the compact menu remains usable without a hover dependency.
+const sidebar=$('.sidebar'),backdrop=$('#navBackdrop');
+if(window.innerWidth>=1100){
+  document.body.classList.add('sidebar-collapsed');
+  sidebar?.addEventListener('mouseenter',()=>document.body.classList.remove('sidebar-collapsed'));
+  sidebar?.addEventListener('mouseleave',()=>document.body.classList.add('sidebar-collapsed'));
+  sidebar?.addEventListener('focusin',()=>document.body.classList.remove('sidebar-collapsed'));
+  sidebar?.addEventListener('focusout',e=>{if(!sidebar.contains(e.relatedTarget))document.body.classList.add('sidebar-collapsed')});
+}
+function openMobileMenu(){sidebar?.classList.add('mobile-open');backdrop?.classList.add('open');document.body.classList.add('mobile-nav-open')}
+function closeMobileMenu(){sidebar?.classList.remove('mobile-open');backdrop?.classList.remove('open');document.body.classList.remove('mobile-nav-open')}
+backdrop?.addEventListener('click',closeMobileMenu);
+window.addEventListener('resize',()=>{if(window.innerWidth>=1100)closeMobileMenu()});
+const dayNames=['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'];
+const shortDays=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+const state={selectedDate:dateKey(new Date()),weekStart:null, guidedType:'planned',preview:[]};
+let db=loadDb(), recognition=null, listening=false;
+let undoSnapshot=null, lastPersisted=null, undoLabel='';
+function dateKey(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function fromKey(k){const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d,12)}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+function mondayOf(d){const x=new Date(d);x.setHours(12,0,0,0);x.setDate(x.getDate()-((x.getDay()+6)%7));return x}
+function fmt(d,opts={day:'numeric',month:'long'}){return new Intl.DateTimeFormat('it-IT',opts).format(d)}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function loadDb(){try{return JSON.parse(localStorage.getItem('pepixRapportiniDB'))||{days:{},templates:[],profile:null}}catch{return {days:{},templates:[],profile:null}}}
+function setSaveStatus(kind,label){const el=$('#saveStatus');if(!el)return;el.classList.toggle('pending',kind==='pending');el.classList.toggle('error',kind==='error');el.querySelector('i').style.background=kind==='error'?'#ff9b9b':kind==='pending'?'#ffd17b':'#8de1b9';el.lastChild.textContent=label}
+function saveDb(){try{const old=localStorage.getItem('pepixRapportiniDB');if(old&&old!==JSON.stringify(db)){undoSnapshot=old;$('#undoBtn').disabled=false;undoLabel='ultima modifica'}localStorage.setItem('pepixRapportiniDB',JSON.stringify(db));lastPersisted=JSON.stringify(db);setSaveStatus('saved','Salvato in locale');updateStats();localStorage.setItem('pepixRapportiniLastSave',new Date().toISOString())}catch(e){setSaveStatus('error','Errore salvataggio');toast('Impossibile salvare: crea subito un backup e libera spazio nel browser.')}}
+function getDay(k){if(!db.days[k])db.days[k]={planned:[],done:[],notes:''};return db.days[k]}
+function updateStats(){let p=0,d=0,days=0;Object.values(db.days).forEach(x=>{p+=x.planned.length;d+=x.done.length;if(x.planned.length||x.done.length||x.notes)days++});$('#statPlanned').textContent=p;$('#statDone').textContent=d;$('#statDays').textContent=days+'/7'}
+function toast(msg){const t=$('#toast');t.textContent=msg;t.style.display='block';clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.style.display='none',2500)}
+function weekDates(){const start=mondayOf(fromKey(state.selectedDate));return Array.from({length:7},(_,i)=>addDays(start,i))}
+function renderWeek(){
+ const dates=weekDates(),start=dates[0],end=dates[6];
+ $('#weekLabel').innerHTML=`${fmt(start,{day:'numeric',month:'short'})} – ${fmt(end,{day:'numeric',month:'short',year:'numeric'})}<small>Settimana lavorativa</small>`;
+ $('#dayStrip').innerHTML=dates.map(d=>{const k=dateKey(d),x=db.days[k],has=x&&(x.planned.length||x.done.length||x.notes);return `<button class="daychip ${k===state.selectedDate?'active':''} ${has?'has':''}" data-date="${k}"><span class="dow">${shortDays[d.getDay()]}</span><span class="num">${d.getDate()}</span><span class="dot"></span></button>`}).join('');
+ $$('#dayStrip [data-date]').forEach(b=>b.onclick=()=>{state.selectedDate=b.dataset.date;renderAll()});
+ const d=fromKey(state.selectedDate),day=getDay(state.selectedDate);
+ $('#selectedDayTitle').textContent=dayNames[d.getDay()];
+ $('#selectedDaySub').textContent=fmt(d,{day:'numeric',month:'long',year:'numeric'});
+ $('#dayNotes').value=day.notes||'';
+ renderTasks('planned');renderTasks('done');
+ populateDaySelects();
+}
+function renderTasks(type){
+ const day=getDay(state.selectedDate),list=$('#'+type+'List'),items=day[type];
+ $('#'+type+'Count').textContent=items.length+' '+(items.length===1?'voce':'voci');
+ if(!items.length){list.innerHTML=`<div class="empty">${type==='planned'?'Nessuna attività programmata. Aggiungila qui o pianifica la settimana.':'Nessuna attività registrata come svolta.'}</div>`;return}
+ list.innerHTML=items.map((item,i)=>`<div class="task ${item.completed?'completed':''}"><input class="taskcheck" type="checkbox" data-type="${type}" data-index="${i}" ${item.completed?'checked':''} aria-label="Segna come completata"><div class="tasktext" contenteditable="true" spellcheck="true" data-edit="${type}" data-index="${i}" aria-label="Modifica attività">${esc(item.text)}</div><div class="taskactions"><button class="tiny" data-move="${type}" data-index="${i}" title="Sposta nell'altra tabella" aria-label="Sposta">⇄</button><button class="tiny danger" data-delete="${type}" data-index="${i}" title="Elimina" aria-label="Elimina">×</button></div></div>`).join('');
+ list.querySelectorAll('[data-edit]').forEach(el=>{el.addEventListener('blur',()=>{const item=getDay(state.selectedDate)[el.dataset.edit][+el.dataset.index];if(item&&item.text!==el.innerText.trim()){item.text=el.innerText.trim();saveDb();renderTasks(type)}});el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();el.blur()}})});
+ list.querySelectorAll('[data-type]').forEach(el=>el.onchange=()=>{const item=getDay(state.selectedDate)[el.dataset.type][+el.dataset.index];if(item){item.completed=el.checked;saveDb();renderTasks(type)}});
+ list.querySelectorAll('[data-delete]').forEach(el=>el.onclick=()=>{getDay(state.selectedDate)[type].splice(+el.dataset.index,1);saveDb();renderAll();toast('Voce eliminata')});
+ list.querySelectorAll('[data-move]').forEach(el=>el.onclick=()=>{const day=getDay(state.selectedDate),item=day[type].splice(+el.dataset.index,1)[0],other=type==='planned'?'done':'planned';if(item){item.completed=false;day[other].push(item);saveDb();renderAll();toast('Voce spostata')}})
+}
+function addItems(type,text,k=state.selectedDate,append=true){const lines=text.split(/\n|;(?=\s*[A-ZÀ-Ü])/).map(x=>x.trim().replace(/^[-•\d.)\s]+/,'')).filter(Boolean);if(!lines.length)return 0;const d=getDay(k);if(!append)d[type]=[];lines.forEach(t=>d[type].push({text:t,completed:false,createdAt:new Date().toISOString()}));saveDb();return lines.length}
+$('#plannedForm').onsubmit=e=>{e.preventDefault();const n=addItems('planned',$('#plannedInput').value);if(n){$('#plannedInput').value='';renderAll();toast('Attività prevista aggiunta')}}; 
+$('#doneForm').onsubmit=e=>{e.preventDefault();const n=addItems('done',$('#doneInput').value);if(n){$('#doneInput').value='';renderAll();toast('Lavoro svolto registrato')}};
+$('#dayNotes').onchange=()=>{getDay(state.selectedDate).notes=$('#dayNotes').value;saveDb();renderWeek()};
+function populateDaySelects(){const dates=weekDates();['planDaySelect','guidedDay'].forEach(id=>{const el=$('#'+id),old=el.value||state.selectedDate;el.innerHTML=dates.map(d=>`<option value="${dateKey(d)}">${dayNames[d.getDay()]} ${fmt(d,{day:'numeric',month:'long'})}</option>`).join('');el.value=dates.some(d=>dateKey(d)===old)?old:state.selectedDate})}
+function renderAll(){renderWeek();renderArchive();updateStats();if($('#agendaCalendarGrid'))renderCalendar('agenda')}
+
+let agendaMonth=mondayOf(fromKey(state.selectedDate));agendaMonth=new Date(agendaMonth.getFullYear(),agendaMonth.getMonth(),1,12);
+let calendarModalDate=state.selectedDate;
+function ensureDay(k){if(!db.days[k])db.days[k]={planned:[],done:[],notes:''};if(!Array.isArray(db.days[k].planned))db.days[k].planned=[];if(!Array.isArray(db.days[k].done))db.days[k].done=[];if(typeof db.days[k].notes!=='string')db.days[k].notes='';return db.days[k]}
+function monthTitle(d){return new Intl.DateTimeFormat('it-IT',{month:'long',year:'numeric'}).format(d)}
+function calendarMarkup(month,selected,mode){const first=new Date(month.getFullYear(),month.getMonth(),1,12),offset=(first.getDay()+6)%7,start=addDays(first,-offset);let out='';for(let i=0;i<42;i++){const d=addDays(start,i),k=dateKey(d),x=db.days[k],isCurrent=d.getMonth()===month.getMonth(),today=k===dateKey(new Date()),plan=x?.planned?.length||0,done=x?.done?.length||0,note=!!x?.notes?.trim();out+=`<button type="button" class="calendar-cell ${isCurrent?'':'muted'} ${today?'today':''} ${k===selected?'selected':''}" data-cal-date="${k}" aria-label="${esc(fmt(d,{weekday:'long',day:'numeric',month:'long',year:'numeric'}))}"><span class="cal-num">${d.getDate()}</span><span class="cal-dots">${plan?'<i title="Programma"></i>':''}${done?'<i class="done" title="Svolto"></i>':''}${note?'<i class="note" title="Note"></i>':''}</span></button>`}return out}
+function renderCalendar(target){const modal=target==='modal',month=modal?new Date(calendarModalDate.slice(0,4),Number(calendarModalDate.slice(5,7))-1,1,12):agendaMonth,selected=modal?calendarModalDate:state.selectedDate;$('#'+(modal?'modalMonthLabel':'agendaMonthLabel')).textContent=monthTitle(month);$('#'+(modal?'modalCalendarGrid':'agendaCalendarGrid')).innerHTML=calendarMarkup(month,selected,target);renderAgendaDetails(modal)}
+function renderAgendaDetails(modal=false){const k=modal?calendarModalDate:state.selectedDate,x=db.days[k]||{planned:[],done:[],notes:''},prefix=modal?'modal':'agenda',d=fromKey(k);$('#'+prefix+'SelectedDate').textContent=fmt(d,{weekday:'long',day:'numeric',month:'long',year:'numeric'});$('#'+prefix+'PlanCount').textContent=(x.planned?.length||0)+' programmate';$('#'+prefix+'DoneCount').textContent=(x.done?.length||0)+' svolte';const notes=$('#'+(modal?'modalAgendaNotes':'agendaNotes'));if(document.activeElement!==notes)notes.value=x.notes||''}
+function renderCalendars(){renderCalendar('agenda');renderCalendar('modal')}
+function openCalendarModal(){calendarModalDate=state.selectedDate;renderCalendar('modal');$('#calendarOverlay').classList.add('open');$('#calendarOverlay').setAttribute('aria-hidden','false');document.body.classList.add('modal-open')}
+function closeCalendarModal(){$('#calendarOverlay').classList.remove('open');$('#calendarOverlay').setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')}
+function chooseCalendarDate(k,modal){if(modal){calendarModalDate=k;renderCalendar('modal')}else{state.selectedDate=k;state.weekStart=mondayOf(fromKey(k));renderAll();renderCalendar('agenda')}}
+function saveAgendaNote(k,value,modal){const d=ensureDay(k);d.notes=value;saveDb();if(modal){renderCalendar('modal')}else{renderCalendar('agenda')}const status=$('#'+(modal?'modal':'agenda')+'AgendaNotes');if(status)status.style.borderColor='#36b58c'}
+$('#weekLabel').addEventListener('click',openCalendarModal);
+$('#calendarClose').addEventListener('click',closeCalendarModal);
+$('#calendarOverlay').addEventListener('click',e=>{if(e.target.id==='calendarOverlay')closeCalendarModal()});
+$('#agendaCalendarGrid').addEventListener('click',e=>{const b=e.target.closest('[data-cal-date]');if(b){chooseCalendarDate(b.dataset.calDate,false)}});
+$('#modalCalendarGrid').addEventListener('click',e=>{const b=e.target.closest('[data-cal-date]');if(b){chooseCalendarDate(b.dataset.calDate,true)}});
+$('#agendaPrev').onclick=()=>{agendaMonth=new Date(agendaMonth.getFullYear(),agendaMonth.getMonth()-1,1,12);renderCalendar('agenda')};
+$('#agendaNext').onclick=()=>{agendaMonth=new Date(agendaMonth.getFullYear(),agendaMonth.getMonth()+1,1,12);renderCalendar('agenda')};
+$('#agendaToday').onclick=()=>{const now=new Date();agendaMonth=new Date(now.getFullYear(),now.getMonth(),1,12);state.selectedDate=dateKey(now);renderAll();renderCalendar('agenda')};
+$('#modalPrev').onclick=()=>{const d=fromKey(calendarModalDate);const m=new Date(d.getFullYear(),d.getMonth()-1,1,12);calendarModalDate=dateKey(new Date(m.getFullYear(),m.getMonth(),Math.min(d.getDate(),new Date(m.getFullYear(),m.getMonth()+1,0).getDate()),12));renderCalendar('modal')};
+$('#modalNext').onclick=()=>{const d=fromKey(calendarModalDate);const m=new Date(d.getFullYear(),d.getMonth()+1,1,12);calendarModalDate=dateKey(new Date(m.getFullYear(),m.getMonth(),Math.min(d.getDate(),new Date(m.getFullYear(),m.getMonth()+1,0).getDate()),12));renderCalendar('modal')};
+$('#modalToday').onclick=()=>{calendarModalDate=dateKey(new Date());renderCalendar('modal')};
+$('#agendaNotes').addEventListener('input',e=>saveAgendaNote(state.selectedDate,e.target.value,false));
+$('#modalAgendaNotes').addEventListener('input',e=>saveAgendaNote(calendarModalDate,e.target.value,true));
+$('#modalSelectDay').onclick=()=>{state.selectedDate=calendarModalDate;state.weekStart=mondayOf(fromKey(state.selectedDate));closeCalendarModal();renderAll();showView('weekView')};
+$('#agendaOpenDay').onclick=()=>{renderAll();showView('weekView')};
+
+$('#prevWeek').onclick=()=>{state.selectedDate=dateKey(addDays(fromKey(state.selectedDate),-7));renderAll()};
+$('#nextWeek').onclick=()=>{state.selectedDate=dateKey(addDays(fromKey(state.selectedDate),7));renderAll()};
+$('#todayBtn').onclick=()=>{state.selectedDate=dateKey(new Date());renderAll()};
+$('#copyDayBtn').onclick=()=>{const next=dateKey(addDays(fromKey(state.selectedDate),1));if(!confirm('Copiare le attività programmate nel giorno successivo? Le attività già presenti saranno mantenute.'))return;const src=getDay(state.selectedDate),dst=getDay(next);dst.planned.push(...src.planned.map(x=>({...x,completed:false})));saveDb();state.selectedDate=next;renderAll();toast('Programma copiato nel giorno successivo')};
+function showView(id){if(id==='agendaView'&&typeof renderCalendars==='function')renderCalendars();$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));$$('.navitem').forEach(b=>b.classList.toggle('active',b.dataset.view===id));$$('.sidenav[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));if(window.innerWidth<1100){closeMobileMenu()}if(id==='archiveView')renderArchive();if(id==='weekPlanView'){populateDaySelects();$('#planDaySelect').value=state.selectedDate;loadPlanEditor()}window.scrollTo({top:0,behavior:'smooth'})}
+$$('[data-view]').forEach(b=>b.onclick=()=>showView(b.dataset.view));
+$$('[data-goto]').forEach(b=>b.onclick=()=>showView(({weekPlan:'weekPlanView',guided:'guidedView',voice:'voiceView'})[b.dataset.goto]));
+$('#planDaySelect').onchange=loadPlanEditor;
+function loadPlanEditor(){const k=$('#planDaySelect').value||state.selectedDate;$('#planBulk').value=getDay(k).planned.map(x=>x.text).join('\n')}
+$('#savePlanBtn').onclick=()=>{const n=addItems('planned',$('#planBulk').value,$('#planDaySelect').value,false);renderAll();toast('Programma del giorno salvato ('+n+' voci)')};
+$('#appendPlanBtn').onclick=()=>{const n=addItems('planned',$('#planBulk').value,$('#planDaySelect').value,true);renderAll();toast(n+' voci aggiunte al programma')};
+$('#goVoiceFromPlan').onclick=()=>showView('voiceView');
+$$('[data-guided-type]').forEach(b=>b.onclick=()=>{state.guidedType=b.dataset.guidedType;$$('[data-guided-type]').forEach(x=>x.classList.toggle('active',x===b))});
+$('#guidedSave').onclick=()=>{const k=$('#guidedDay').value||state.selectedDate,n=addItems(state.guidedType,$('#guidedText').value,k);if(n){state.selectedDate=k;$('#guidedText').value='';renderAll();showView('weekView');toast(n+' voci aggiunte') }};
+function initRecognition(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){$('#micStatus').textContent='Riconoscimento vocale non disponibile qui. Scrivi nel campo o prova un browser compatibile.';return null}const r=new SR();r.lang='it-IT';r.continuous=true;r.interimResults=true;r.onstart=()=>{listening=true;$('#micBtn').classList.add('listening');$('#micBtn').textContent='■';$('#micStatus').textContent='Ti ascolto… premi di nuovo per fermare.'};r.onresult=e=>{let final='',interim='';for(let i=e.resultIndex;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)final+=t+' ';else interim+=t}const area=$('#voiceText');if(final)area.value=(area.value+' '+final).trim();$('#micStatus').textContent=interim?'Sto ascoltando: '+interim:'Dettatura acquisita. Controlla il testo.'};r.onerror=e=>{$('#micStatus').textContent='Problema con la dettatura ('+e.error+'). Puoi scrivere manualmente.'};r.onend=()=>{listening=false;$('#micBtn').classList.remove('listening');$('#micBtn').textContent='🎙';if($('#micStatus').textContent==='Ti ascolto… premi di nuovo per fermare.')$('#micStatus').textContent='Dettatura terminata. Controlla il testo.'};return r}
+$('#micBtn').onclick=()=>{if(!recognition)recognition=initRecognition();if(!recognition){toast('Dettatura non supportata: scrivi il testo');return}try{listening?recognition.stop():recognition.start()}catch(e){toast('Attendi un istante e riprova')}};
+$('#guidedMic').onclick=()=>{if(!recognition)recognition=initRecognition();if(!recognition)return;recognition.onresult=e=>{let t='';for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)t+=e.results[i][0].transcript+' ';$('#guidedText').value=(($('#guidedText').value||'')+' '+t).trim()};try{recognition.start();toast('Dettatura guidata avviata')}catch(e){toast('Dettatura già attiva o non disponibile')}};
+$('#clearVoice').onclick=()=>{$('#voiceText').value='';$('#previewCard').style.display='none'};
+$('#aiCorrectionEnabled').checked = localStorage.getItem('pepixAiCorrectionEnabled') === 'true';
+$('#aiCorrectionEnabled').onchange = () => {
+  localStorage.setItem('pepixAiCorrectionEnabled', $('#aiCorrectionEnabled').checked ? 'true' : 'false');
+  toast($('#aiCorrectionEnabled').checked ? 'Opzione IA attivata per questa app' : 'Correzione IA disattivata');
+};
+$('#correctVoice').onclick = () => {
+  const original = $('#voiceText').value.trim();
+  if (!original) { toast('Inserisci o detta prima un testo'); return; }
+  if (!$('#aiCorrectionEnabled').checked) {
+    toast('Attiva prima la correzione IA facoltativa');
+    return;
+  }
+  alert('La scelta IA è già memorizzata, ma il modello di correzione non è ancora collegato. Per ora puoi modificare direttamente il testo qui sopra. L’integrazione del modello verrà aggiunta senza cambiare il flusso di lavoro.');
+};
+function parseDateMention(s){const lower=s.toLocaleLowerCase('it');const aliases=[['lunedì',1],['lunedi',1],['martedì',2],['martedi',2],['mercoledì',3],['mercoledi',3],['giovedì',4],['giovedi',4],['venerdì',5],['venerdi',5],['sabato',6],['domenica',0]];for(const [name,n] of aliases){if(lower.includes(name)){const d=fromKey(state.selectedDate),delta=(n-d.getDay()+7)%7;return dateKey(addDays(d,delta))}}const match=lower.match(/giorno\s*(\d{1,2})/);if(match){const ds=weekDates().find(d=>d.getDate()===+match[1]);if(ds)return dateKey(ds)}return state.selectedDate}
+function parseVoice(text){const segments=text.replace(/\r/g,'').split(/(?=(?:lunedì|lunedi|martedì|martedi|mercoledì|mercoledi|giovedì|giovedi|venerdì|venerdi|sabato|domenica|giorno\s*\d{1,2})\b)/i).map(s=>s.trim()).filter(Boolean);const result=[];segments.forEach(seg=>{let k=parseDateMention(seg),lower=seg.toLocaleLowerCase('it');let current='planned';const parts=seg.split(/(?:da fare|programma(?:to)?(?: da fare)?|lavoro svolto|attività svolte|ho fatto|svolto|eseguito|completato)\s*:?/i);if(parts.length===1){const label=lower.includes('svolto')||lower.includes('ho fatto')||lower.includes('eseguito')?'done':'planned';const cleaned=seg.replace(/^(lunedì|lunedi|martedì|martedi|mercoledì|mercoledi|giovedì|giovedi|venerdì|venerdi|sabato|domenica|giorno\s*\d{1,2})[\s,:-]*/i,'').trim();if(cleaned)result.push({date:k,type:label,text:cleaned.replace(/^(da fare|lavoro svolto)\s*:?\s*/i,'')});return}
+let cursor=0;const re=/(da fare|programma(?:to)?(?: da fare)?|lavoro svolto|attività svolte|ho fatto|svolto|eseguito|completato)\s*:?/ig;let m,marks=[];while((m=re.exec(seg))!==null)marks.push({at:m.index,end:re.lastIndex,label:m[1]});marks.forEach((mark,i)=>{current=/svolto|ho fatto|attività svolte|eseguito|completato/i.test(mark.label)?'done':'planned';const end=i+1<marks.length?marks[i+1].at:seg.length;let content=seg.slice(mark.end,end).replace(/^(lunedì|lunedi|martedì|martedi|mercoledì|mercoledi|giovedì|giovedi|venerdì|venerdi|sabato|domenica|giorno\s*\d{1,2})[\s,:-]*/i,'').trim();content.split(/[;\n]+|,\s*(?=(?:e poi|poi)\b)/i).map(x=>x.trim().replace(/^(e poi|poi)\s*/i,'')).filter(Boolean).forEach(t=>result.push({date:k,type:current,text:t}))})});
+return result.filter(x=>x.text&&x.text.length>1)}
+$('#parseVoice').onclick=()=>{const r=parseVoice($('#voiceText').value);state.preview=r;const card=$('#previewCard');card.style.display='block';if(!r.length){$('#previewList').innerHTML='<div class="empty">Non ho trovato voci sicure da distribuire. Prova a nominare giorno e sezione, oppure usa la modalità guidata.</div>';return}$('#previewList').innerHTML=r.map((x,i)=>`<div class="task"><div class="tasktext"><strong>${esc(dayNames[fromKey(x.date).getDay()])} ${fmt(fromKey(x.date),{day:'numeric',month:'short'})}</strong><br><span style="color:${x.type==='done'?'#26785c':'#416da5'}">${x.type==='done'?'Lavoro svolto':'Da fare'}</span><br>${esc(x.text)}</div><button class="tiny danger" data-preview-delete="${i}">×</button></div>`).join('');$('#previewList').querySelectorAll('[data-preview-delete]').forEach(b=>b.onclick=()=>{state.preview.splice(+b.dataset.previewDelete,1);$('#parseVoice').click()});card.scrollIntoView({behavior:'smooth',block:'start'})};
+$('#cancelPreview').onclick=()=>{$('#previewCard').style.display='none';state.preview=[]};
+$('#confirmPreview').onclick=()=>{if(!state.preview.length){toast('Nessuna voce da salvare');return}state.preview.forEach(x=>getDay(x.date)[x.type].push({text:x.text,completed:false,createdAt:new Date().toISOString()}));const first=state.preview[0].date;state.selectedDate=first;saveDb();renderAll();$('#previewCard').style.display='none';$('#voiceText').value='';state.preview=[];showView('weekView');toast('Voci distribuite e salvate')};
+function renderArchive(){const q=($('#searchArchive')?.value||'').toLocaleLowerCase('it').trim();const keys=Object.keys(db.days).sort((a,b)=>b.localeCompare(a)).filter(k=>{const x=db.days[k];return !q||[...x.planned,...x.done].some(t=>t.text.toLocaleLowerCase('it').includes(q))||(x.notes||'').toLocaleLowerCase('it').includes(q)});const el=$('#archiveResults');if(!keys.length){el.innerHTML='<div class="empty">Nessun rapportino trovato. I giorni compariranno qui quando aggiungi dati.</div>';return}el.innerHTML=keys.map(k=>{const x=db.days[k],d=fromKey(k);return `<button class="exportrow" data-archive-date="${k}" style="width:100%;text-align:left;background:white;border:0"><div class="exportico">📅</div><div class="grow"><strong>${dayNames[d.getDay()]} ${fmt(d,{day:'numeric',month:'long',year:'numeric'})}</strong><p>${x.planned.length} previste · ${x.done.length} svolte${x.notes?' · note presenti':''}</p></div><span>›</span></button>`}).join('');el.querySelectorAll('[data-archive-date]').forEach(b=>b.onclick=()=>{state.selectedDate=b.dataset.archiveDate;renderAll();showView('weekView')})}
+$('#searchArchive').oninput=renderArchive;
+function dateInputValue(d){return dateKey(d)}
+function exportSuggestedRange(mode){
+ const selected=fromKey(state.selectedDate),startWeek=mondayOf(selected);
+ if(mode==='month')return {start:new Date(selected.getFullYear(),selected.getMonth(),1),end:new Date(selected.getFullYear(),selected.getMonth()+1,0)};
+ if(mode==='all'){const keys=Object.keys(db.days).sort();return keys.length?{start:fromKey(keys[0]),end:fromKey(keys[keys.length-1])}:{start:startWeek,end:addDays(startWeek,6)}}
+ const weeks=mode==='3weeks'?3:mode==='2weeks'?2:1;
+ return {start:startWeek,end:addDays(startWeek,7*weeks-1)};
+}
+function syncExportDateInputs(useSuggested=true){
+ const mode=$('#exportPeriod')?.value||'week',startEl=$('#exportStartDate'),endEl=$('#exportEndDate');if(!startEl||!endEl)return;
+ if(useSuggested||!startEl.value||!endEl.value){const r=exportSuggestedRange(mode);startEl.value=dateInputValue(r.start);endEl.value=dateInputValue(r.end)}
+ startEl.disabled=mode==='all';endEl.disabled=mode==='all';
+ $('#exportRangeHint').textContent=mode==='all'?'Verranno inclusi tutti i giorni che contengono rapportini salvati.':mode==='custom'?'Intervallo personalizzato: scegli liberamente la data iniziale e finale.':'Date suggerite in base alla settimana attualmente selezionata. Puoi modificarle per definire un intervallo personalizzato.';
+}
+function selectedKeys(){
+ const mode=$('#exportPeriod').value;if(mode==='all')return Object.keys(db.days).sort();
+ let start=$('#exportStartDate')?.value,end=$('#exportEndDate')?.value;
+ if(!start||!end){syncExportDateInputs(true);start=$('#exportStartDate').value;end=$('#exportEndDate').value}
+ if(start>end){toast('La data iniziale non può essere successiva alla data finale');return []}
+ return Object.keys(db.days).filter(k=>k>=start&&k<=end).sort();
+}
+$('#exportPeriod').addEventListener('change',()=>syncExportDateInputs(true));
+$('#exportStartDate').addEventListener('change',()=>{if($('#exportPeriod').value!=='all')$('#exportPeriod').value='custom';syncExportDateInputs(false)});
+$('#exportEndDate').addEventListener('change',()=>{if($('#exportPeriod').value!=='all')$('#exportPeriod').value='custom';syncExportDateInputs(false)});
+syncExportDateInputs(true);
+function download(name,content,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function backup(){const payload={app:'Cioffo Rapportini',version:3,exportedAt:new Date().toISOString(),days:db.days,templates:db.templates||[],profile:db.profile||null};download('cioffo-rapportini-backup-'+dateKey(new Date())+'.json',JSON.stringify(payload,null,2),'application/json');try{localStorage.setItem('pepixRapportiniLastBackup',new Date().toISOString())}catch{}toast('Backup creato: conservalo in un luogo sicuro')}
+$('#backupBtn').onclick=backup;$('#exportJson').onclick=backup;$('#sideBackup')?.addEventListener('click',backup);
+$('#undoBtn').onclick=()=>{if(!undoSnapshot){toast('Nessuna modifica da annullare');return}if(!confirm('Annullare l’ultima modifica salvata?'))return;try{localStorage.setItem('pepixRapportiniDB',undoSnapshot);db=JSON.parse(undoSnapshot);undoSnapshot=null;$('#undoBtn').disabled=true;setSaveStatus('saved','Modifica annullata');renderAll();toast('Ultima modifica annullata')}catch(e){toast('Non è stato possibile annullare la modifica')}};
+$('#exportCsv').onclick=()=>{const keys=selectedKeys();if(!keys.length){toast('Nessun dato da esportare');return}const rows=[['Data','Giorno','Sezione','Attività','Completata','Note']];keys.forEach(k=>{const x=db.days[k],d=fromKey(k);if(!x.planned.length&&!x.done.length)rows.push([k,dayNames[d.getDay()],'','','',x.notes||'']);x.planned.forEach(t=>rows.push([k,dayNames[d.getDay()],'Programma da fare',t.text,t.completed?'Sì':'No',x.notes||'']));x.done.forEach(t=>rows.push([k,dayNames[d.getDay()],'Lavoro svolto',t.text,t.completed?'Sì':'No',x.notes||'']))});const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');download('rapportino-'+($('#exportStartDate').value||dateKey(new Date()))+'_'+($('#exportEndDate').value||dateKey(new Date()))+'.csv',csv,'text/csv;charset=utf-8;')};
+$('#exportPdf').onclick=()=>{
+ const keys=selectedKeys();
+ if(!keys.length){toast('Nessun dato da esportare');return}
+ const title=$('#companyName').value.trim()||'Rapportino attività';
+ const mode=$('#exportPeriod').value;
+ const dates=keys.map(fromKey);
+ const minDate=new Date(Math.min(...dates.map(d=>d.getTime())));
+ const maxDate=new Date(Math.max(...dates.map(d=>d.getTime())));
+ const totalPlanned=keys.reduce((n,k)=>n+(db.days[k].planned||[]).length,0);
+ const totalDone=keys.reduce((n,k)=>n+(db.days[k].done||[]).length,0);
+ const range=minDate.toLocaleDateString('it-IT')+(dateKey(minDate)===dateKey(maxDate)?'':' – '+maxDate.toLocaleDateString('it-IT'));
+ const rows=keys.map(k=>{
+   const x=db.days[k],d=fromKey(k);
+   if(!(x.planned||[]).length&&!(x.done||[]).length&&!(x.notes||''))return '';
+   return `<section class="day"><h2><span>${esc(dayNames[d.getDay()])} ${esc(fmt(d,{day:'numeric',month:'long',year:'numeric'}))}</span><small>${(x.planned||[]).length} previste · ${(x.done||[]).length} svolte</small></h2><div class="cols"><div class="planned"><h3><i>01</i> Programma da fare</h3><ul>${(x.planned||[]).map(t=>'<li>'+esc(t.text)+'</li>').join('')||'<li class="muted">Nessuna attività inserita</li>'}</ul></div><div class="done"><h3><i>02</i> Lavoro svolto</h3><ul>${(x.done||[]).map(t=>'<li>'+esc(t.text)+'</li>').join('')||'<li class="muted">Nessuna attività inserita</li>'}</ul></div></div>${x.notes?'<div class="notes"><b>Note del giorno</b><p>'+esc(x.notes)+'</p></div>':''}</section>`;
+ }).filter(Boolean).join('');
+ const w=window.open('','_blank');
+ if(!w){toast('Consenti le finestre popup per creare il PDF');return}
+ w.document.write(`<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(title)} — ${esc(range)}</title><style>
+ *{box-sizing:border-box}body{font:12px/1.6 Arial,Helvetica,sans-serif;color:#252544;margin:0;background:#fff}
+ .sheet{max-width:900px;margin:0 auto;padding:30px}
+ .head{padding:26px 28px;border-radius:16px;background:linear-gradient(120deg,#39318f,#5146d8 58%,#168e9a);color:#fff;margin-bottom:18px}
+ .brand{font-size:9px;text-transform:uppercase;letter-spacing:1.8px;font-weight:bold;opacity:.8}
+ h1{font-size:27px;line-height:1.2;margin:11px 0 8px;letter-spacing:-.5px}
+ .range{font-size:11px;color:#e0e6ff;line-height:1.6;overflow-wrap:anywhere}
+ .operator{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;margin-top:7px;font-size:10px;line-height:1.5;color:#fff}
+ .operator strong{font-weight:700}.operator span{display:inline-block;overflow-wrap:anywhere;word-break:break-word}
+ .stats{display:flex;gap:9px;margin-top:17px;align-items:stretch}.stat{flex:1;background:#ffffff18;border:1px solid #ffffff35;border-radius:10px;padding:9px 11px}.stat b{display:block;font-size:18px}.stat span{font-size:9px;color:#e0e6ff}
+ .day{border:1px solid #dedff0;border-radius:12px;margin:0 0 15px;overflow:hidden;break-inside:avoid;page-break-inside:avoid}
+ .day h2{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0;padding:10px 13px;background:#f2f1ff;color:#353078;font-size:13px}
+ .day h2 small{font-size:9px;color:#6f6b9a;font-weight:normal;white-space:nowrap}
+ .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:13px}
+ .cols>div{border:1px solid #e3e6f1;border-radius:9px;padding:12px;min-width:0}
+ h3{display:flex;align-items:center;gap:6px;font-size:10px;margin:0 0 8px}
+ h3 i{font-style:normal;font-size:8px;border-radius:5px;padding:3px 5px;background:#e8e6ff;color:#5146d8}
+ .done h3 i{background:#ddf8ec;color:#16845d}
+ ul{padding-left:16px;margin:0}li{margin:0 0 7px;overflow-wrap:anywhere;word-break:break-word}li:last-child{margin-bottom:0}.muted{color:#999}
+ .notes{margin:0 11px 11px;padding:9px 10px;border-radius:8px;background:#fff7ee;border:1px solid #f6e7d5}.notes p{margin:3px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+ .sign{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-top:25px;padding:0 4px}
+ .sign div{border-top:1px solid #a9a9c1;padding-top:6px;color:#72728a;font-size:9px}
+ .foot{border-top:1px solid #e5e5ef;padding-top:9px;margin-top:22px;color:#8989a0;font-size:9px;display:flex;justify-content:space-between;gap:10px}
+ .emptyreport{padding:18px;text-align:center;border:1px dashed #c8c7dc;border-radius:10px;color:#777}
+ @page{size:A4;margin:13mm}
+ @media print{
+   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+   body{font-size:10pt;line-height:1.45}
+   .sheet{max-width:none;padding:0;margin:0}
+   .no-print{display:none!important}
+   .head{padding:18px 20px;border-radius:10px;margin-bottom:14px;break-inside:avoid}
+   .brand{font-size:8pt;letter-spacing:1.4px;line-height:1.5}
+   h1{font-size:22pt;line-height:1.18;margin:8px 0 6px;overflow-wrap:anywhere}
+   .range{font-size:9pt;line-height:1.5}
+   .operator{font-size:8.5pt;line-height:1.5;gap:3px 10px}
+   .stats{gap:7px;margin-top:12px}
+   .stat{min-width:0;padding:8px 9px}
+   .stat b{font-size:15pt;line-height:1.2}
+   .stat span{font-size:7.5pt;line-height:1.4;display:block}
+   .day h2{flex-wrap:wrap;line-height:1.35}
+   .day h2 small{white-space:normal}
+   .sign{break-inside:avoid}
+ }
+ @media(max-width:560px){.sheet{padding:12px}.cols{grid-template-columns:1fr}.day h2{align-items:flex-start;flex-direction:column;gap:2px}}
+ </style></head><body><div class="sheet"><header class="head"><div class="brand">CIOFFO RAPPORTINI · REPORT ATTIVITÀ</div><h1>${esc(title)}</h1><div class="range">Periodo: ${esc(range)} · Generato il ${esc(new Date().toLocaleDateString('it-IT'))}</div><div class="operator"><strong>${esc(db.profile?.fullName||'')}</strong><span>${esc(db.profile?.email||'')}</span><span>${esc(db.profile?.phone||'')}</span></div><div class="stats"><div class="stat"><b>${totalPlanned}</b><span>Attività previste</span></div><div class="stat"><b>${totalDone}</b><span>Attività svolte</span></div><div class="stat"><b>${keys.length}</b><span>Giorni nel periodo</span></div></div></header>${rows||'<div class="emptyreport">Nessuna attività o nota da stampare nel periodo selezionato.</div>'}<div class="sign"><div>Firma operatore</div><div>Firma responsabile</div></div><div class="foot"><span>Cioffo Rapportini · Documento generato localmente</span><span>${esc(range)}</span></div><div class="no-print" style="margin:20px 0;display:flex;gap:8px"><button onclick="window.print()" style="background:#5146d8;color:white;border:0;padding:11px 16px;border-radius:9px;font-weight:bold;cursor:pointer">Stampa</button><button onclick="saveReportPdf()" style="background:#16836b;color:white;border:0;padding:11px 16px;border-radius:9px;font-weight:bold;cursor:pointer">Salva PDF</button><button onclick="window.close()" style="background:#f2f1ff;color:#39318f;border:0;padding:11px 16px;border-radius:9px;cursor:pointer">Chiudi</button></div></div><script>function saveReportPdf(){if(window.opener)window.opener.postMessage({type:"cioffo-save-pdf"},"*");else alert("Apri il salvataggio PDF dalla finestra principale.")}<\/script></body></html>`);
+ w.document.close();
+};
+
+
+function saveReportPdf(){try{const keys=selectedKeys();if(!keys.length){toast('Nessun dato da esportare');return}const escP=v=>String(v==null?'':v).replace(/[^\x20-\x7E\xA0-\xFF]/g,'?').replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)');const dates=keys.map(fromKey),minD=new Date(Math.min(...dates.map(d=>d.getTime()))),maxD=new Date(Math.max(...dates.map(d=>d.getTime()))),label=d=>d.toLocaleDateString('it-IT'),range=label(minD)+(dateKey(minD)===dateKey(maxD)?'':' - '+label(maxD)),title=$('#companyName').value.trim()||'Rendicontazione attività lavorative',W=595,H=842,M=46,pages=[];let ops=[],y=0;const rgb=h=>[1,3,5].map(i=>(parseInt(h.slice(i,i+2),16)/255).toFixed(3)).join(' ');function txt(t,x,yy,size,bold,color){ops.push(rgb(color||'#27334a')+' rg BT /'+(bold?'F2':'F1')+' '+size+' Tf 1 0 0 1 '+x+' '+yy+' Tm ('+escP(t)+') Tj ET')}function box(x,yy,w,h,c){ops.push(rgb(c)+' rg '+x+' '+yy+' '+w+' '+h+' re f')}function page(){if(ops.length)pages.push(ops.join('\n'));ops=[];box(0,H-8,W,8,'#5146d8');y=H-48;txt('CIOFFO RAPPORTINI / GESTIONE ATTIVITÀ',M,y,8,true,'#5146d8');y-=27;txt(title,M,y,18,true,'#172b4d');y-=18;txt('Periodo: '+range+' | Generato il '+label(new Date()),M,y,9,false,'#64748b');y-=20;txt('ATTIVITÀ PREVISTE: '+keys.reduce((n,k)=>n+(db.days[k].planned||[]).length,0)+'   ATTIVITÀ SVOLTE: '+keys.reduce((n,k)=>n+(db.days[k].done||[]).length,0),M,y,9,true,'#3730a3');y-=28}function ensure(h){if(y-h<55)page()}function wrap(t,max){let out=[],line='';String(t||'').split(/\s+/).forEach(w=>{if(!w)return;if((line+' '+w).trim().length>max&&line){out.push(line);line=w}else line=(line+' '+w).trim()});if(line)out.push(line);return out.length?out:['']}page();keys.forEach(k=>{const d=fromKey(k),x=db.days[k];if(!(x.planned||[]).length&&!(x.done||[]).length&&!(x.notes||''))return;ensure(42);y-=3;box(M,y-7,W-2*M,22,'#f0efff');txt(dayNames[d.getDay()]+' '+label(d),M+8,y,10,true,'#373078');y-=27;[['PROGRAMMA DA FARE',x.planned||[],'#5146d8'],['LAVORO SVOLTO',x.done||[],'#16845d']].forEach(g=>{ensure(22);txt(g[0],M+4,y,8,true,g[2]);y-=14;if(!g[1].length){txt('Nessuna attività inserita',M+10,y,8,false,'#8792a2');y-=12}else g[1].forEach(it=>wrap('- '+it.text,88).forEach(line=>{ensure(13);txt(line,M+8,y,8,false,'#27334a');y-=12}));y-=3});if(x.notes){ensure(20);txt('NOTE',M+4,y,8,true,'#9a5b18');y-=13;wrap(x.notes,88).forEach(line=>{ensure(13);txt(line,M+8,y,8,false,'#5f4b37');y-=12})}y-=8});pages.push(ops.join('\n'));const o=[],add=v=>(o.push(v),o.length),cat=add(''),tree=add(''),f1=add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>'),f2=add('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>'),ids=[];pages.forEach(c=>{const st=c+'\n',cid=add('<< /Length '+st.length+' >>\nstream\n'+st+'endstream'),pid=add('<< /Type /Page /Parent '+tree+' 0 R /MediaBox [0 0 '+W+' '+H+'] /Resources << /Font << /F1 '+f1+' 0 R /F2 '+f2+' 0 R >> >> /Contents '+cid+' 0 R >>');ids.push(pid)});o[cat-1]='<< /Type /Catalog /Pages '+tree+' 0 R >>';o[tree-1]='<< /Type /Pages /Kids ['+ids.map(i=>i+' 0 R').join(' ')+'] /Count '+ids.length+' >>';let pdf='%PDF-1.4\n%1234\n',offs=[0];o.forEach((v,i)=>{offs.push(pdf.length);pdf+=(i+1)+' 0 obj\n'+v+'\nendobj\n'});const x=pdf.length;pdf+='xref\n0 '+(o.length+1)+'\n0000000000 65535 f \n';for(let i=1;i<offs.length;i++)pdf+=String(offs[i]).padStart(10,'0')+' 00000 n \n';pdf+='trailer\n<< /Size '+(o.length+1)+' /Root '+cat+' 0 R >>\nstartxref\n'+x+'\n%%EOF';const b=new Uint8Array(pdf.length);for(let i=0;i<pdf.length;i++)b[i]=pdf.charCodeAt(i)&255;const url=URL.createObjectURL(new Blob([b],{type:'application/pdf'})),a=document.createElement('a');a.href=url;a.download='cioffo-rapportini-'+dateKey(minD)+'_'+dateKey(maxD)+'.pdf';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);toast('PDF generato e scaricato')}catch(e){console.error(e);toast('Errore generazione PDF: usa Stampa come alternativa')}}
+window.addEventListener('message',function(e){if(e.data&&e.data.type==='cioffo-save-pdf')saveReportPdf()});
+function initialsFor(name){return String(name||'').trim().split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0].toLocaleUpperCase('it')).join('')||'CR'}
+function renderProfile(){const profile=db.profile||{};$('#avatarInitials').textContent=initialsFor(profile.fullName);$('#profileFullName').value=profile.fullName||'';$('#profileEmail').value=profile.email||'';$('#profilePhone').value=profile.phone||'';const configured=!!(profile.fullName&&profile.email&&profile.phone);$('#profileModalTitle').textContent=configured?'Profilo e impostazioni':'Completa il tuo profilo';$('#profileIntro').textContent=configured?'Aggiorna i dati che compariranno nei rapportini PDF. Le modifiche vengono salvate solo su questo dispositivo.':'Inserisci nome e cognome, email e telefono aziendale per personalizzare l’app e inserirli nell’intestazione dei PDF. I dati restano solo su questo dispositivo.';$('#profileSave').textContent=configured?'Salva modifiche':'Salva e continua'}
+function openProfile(force=false){renderProfile();$('#profileOverlay').classList.add('open');$('#profileOverlay').setAttribute('aria-hidden','false');document.body.classList.add('modal-open');$('#profileCancel').style.display=force?'none':'';$('#profileClose').style.display=force?'none':'';if(force)$('#profileFullName').focus()}
+function closeProfile(){if(!db.profile?.fullName||!db.profile?.email||!db.profile?.phone){toast('Completa il profilo per continuare');return}$('#profileOverlay').classList.remove('open');$('#profileOverlay').setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')}
+$('#profileBtn').addEventListener('click',()=>openProfile(false));
+$('#profileClose').addEventListener('click',closeProfile);$('#profileCancel').addEventListener('click',closeProfile);
+$('#profileOverlay').addEventListener('click',e=>{if(e.target.id==='profileOverlay')closeProfile()});
+$('#profileForm').addEventListener('submit',e=>{e.preventDefault();const fullName=$('#profileFullName').value.trim(),email=$('#profileEmail').value.trim(),phone=$('#profilePhone').value.trim();if(!fullName||!email||!phone){toast('Compila tutti i campi richiesti');return}if(!$('#profileEmail').checkValidity()){toast('Controlla il formato dell’email');return}db.profile={fullName,email,phone};saveDb();renderProfile();$('#profileOverlay').classList.remove('open');$('#profileOverlay').setAttribute('aria-hidden','true');document.body.classList.remove('modal-open');toast('Profilo salvato su questo dispositivo')});
+
+
+const helpSearch=$('#helpSearch');
+if(helpSearch){helpSearch.addEventListener('input',()=>{const q=helpSearch.value.trim().toLocaleLowerCase('it');$$('.faq-item').forEach(item=>{item.hidden=!!q&&!item.innerText.toLocaleLowerCase('it').includes(q)});});}
+$$('.faq-item').forEach(item=>item.addEventListener('toggle',()=>{const mark=item.querySelector('.faq-chevron');if(mark)mark.textContent=item.open?'−':'＋'}));
+
+function ensureTemplates(){if(!Array.isArray(db.templates))db.templates=[]}
+function renderTemplates(){ensureTemplates();const select=$('#templateSelect');if(!select)return;const chosen=select.value;select.innerHTML='<option value="">Scegli un modello salvato…</option>'+db.templates.map((t,i)=>`<option value="${i}">${esc(t.name)} — ${esc(t.text.slice(0,55))}</option>`).join('');if(chosen!==''&&db.templates[+chosen])select.value=chosen;$('#templateCount').textContent=db.templates.length+' '+(db.templates.length===1?'modello':'modelli')}
+$('#saveTemplate').onclick=()=>{const name=$('#templateName').value.trim(),text=$('#templateText').value.trim();if(!name||!text){toast('Inserisci nome e testo del modello');return}ensureTemplates();if(db.templates.some(t=>t.name.toLocaleLowerCase('it')===name.toLocaleLowerCase('it'))){toast('Esiste già un modello con questo nome');return}db.templates.push({id:Date.now().toString(36),name,text,createdAt:new Date().toISOString()});saveDb();renderTemplates();$('#templateName').value='';$('#templateText').value='';toast('Modello salvato')}
+$('#useTemplatePlanned').onclick=()=>{const t=db.templates?.[+$('#templateSelect').value];if(!t){toast('Scegli prima un modello');return}addItems('planned',t.text);renderAll();toast('Modello aggiunto al programma')}
+$('#useTemplateDone').onclick=()=>{const t=db.templates?.[+$('#templateSelect').value];if(!t){toast('Scegli prima un modello');return}addItems('done',t.text);renderAll();toast('Modello aggiunto al lavoro svolto')}
+$('#deleteTemplate').onclick=()=>{const i=+$('#templateSelect').value;if($('#templateSelect').value===''||!db.templates?.[i]){toast('Scegli prima un modello');return}if(!confirm('Eliminare il modello selezionato? Le attività già inserite non verranno toccate.'))return;db.templates.splice(i,1);saveDb();renderTemplates();toast('Modello eliminato')}
+
+$('#importJson').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const obj=JSON.parse(await f.text()),days=obj.days||obj;if(!days||typeof days!=='object')throw Error('Formato');let n=0;Object.entries(days).forEach(([k,v])=>{if(!/^\d{4}-\d{2}-\d{2}$/.test(k)||!v||typeof v!=='object')return;const dest=getDay(k);['planned','done'].forEach(type=>{(v[type]||[]).forEach(t=>{if(t&&typeof t.text==='string'&&!dest[type].some(x=>x.text===t.text))dest[type].push({text:t.text,completed:!!t.completed})})});if(v.notes&&!dest.notes)dest.notes=v.notes;n++});if(obj.profile&&typeof obj.profile==='object')db.profile={fullName:String(obj.profile.fullName||''),email:String(obj.profile.email||''),phone:String(obj.profile.phone||'')};if(Array.isArray(obj.templates)){ensureTemplates();obj.templates.forEach(t=>{if(t&&typeof t.name==='string'&&typeof t.text==='string'&&!db.templates.some(x=>x.name.toLocaleLowerCase('it')===t.name.toLocaleLowerCase('it')))db.templates.push({id:t.id||Date.now().toString(36),name:t.name,text:t.text})})}saveDb();renderAll();renderTemplates();toast('Backup importato: '+n+' giorni elaborati')}catch(err){toast('File JSON non valido')}e.target.value=''};
+if(!db.days)db.days={};ensureTemplates();state.weekStart=mondayOf(fromKey(state.selectedDate));renderAll();renderTemplates();
+renderCalendars();renderProfile();if(!db.profile?.fullName||!db.profile?.email||!db.profile?.phone)openProfile(true);
+try{const last=localStorage.getItem('pepixRapportiniLastBackup');if(!last||(Date.now()-new Date(last).getTime())>7*24*60*60*1000)setTimeout(()=>toast('Promemoria: crea un backup dei tuoi rapportini'),1200)}catch{}
+if(!localStorage.getItem('pepixRapportiniLastSave'))setSaveStatus('saved','Salvato in locale');
+
+})();
+</script>
+</body>
+</html>

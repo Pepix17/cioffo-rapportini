@@ -1,0 +1,11 @@
+{
+  "name": "Cioffo Rapportini",
+  "short_name": "Cioffo",
+  "description": "Rapportini di lavoro locali e offline",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f7f7ff",
+  "theme_color": "#5146d8",
+  "lang": "it",
+  "icons": []
+}

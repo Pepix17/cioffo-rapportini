@@ -1,0 +1,6 @@
+{
+  "appId": "it.cioffo.rapportini",
+  "appName": "Cioffo Rapportini",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}
