@@ -20,15 +20,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --no-audit --no-fund
 
       - name: Validate package configuration
         run: node -e "JSON.parse(require('fs').readFileSync('package.json', 'utf8')); console.log('package.json valido')"
 
       - name: Check JavaScript syntax
         run: |
-          node --check www/index.html 2>/dev/null || true
-          node -e "const fs=require('fs'); const h=fs.readFileSync('www/index.html','utf8'); const scripts=[...h.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)]; for (const s of scripts) { if (s[1].trim()) { new Function(s[1]); } } console.log('Controllo script completato')"
+          node --input-type=commonjs -e '
+          const fs = require("fs");
+          const html = fs.readFileSync("www/index.html", "utf8");
+          const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)];
+          for (const script of scripts) {
+            if (script[1].trim()) {
+              require("vm").Script(script[1]);
+            }
+          }
+          console.log("Controllo script completato");
+          '
